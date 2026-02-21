@@ -1,0 +1,54 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Mini Cart",
+      "id": "commerce-mini-cart",
+      "model": "commerce-mini-cart",
+      "plugins": {
+        "da": {
+          "type": "key-value-block"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-mini-cart",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "start-shopping-url",
+          "label": "Start Shopping URL"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cart-url",
+          "label": "Cart URL"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "checkout-url",
+          "label": "Checkout URL"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enable-updating-product",
+          "label": "Enable Updating Product",
+          "value": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "undo-remove-item",
+          "label": "Undo Remove Item",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

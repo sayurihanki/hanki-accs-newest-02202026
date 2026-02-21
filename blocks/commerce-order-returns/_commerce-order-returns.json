@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Order Returns",
+      "id": "commerce-order-returns",
+      "plugins": {
+        "da": {
+          "name": "commerce-order-returns",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-order-returns",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

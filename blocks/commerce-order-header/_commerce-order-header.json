@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Order Header",
+      "id": "commerce-order-header",
+      "plugins": {
+        "da": {
+          "name": "commerce-order-header",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-order-header",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

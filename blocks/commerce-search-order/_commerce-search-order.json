@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Search Order",
+      "id": "commerce-search-order",
+      "plugins": {
+        "da": {
+          "name": "commerce-search-order",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-search-order",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

@@ -1,0 +1,29 @@
+{
+  "definitions": [
+    {
+      "title": "Product List Page",
+      "id": "product-list-page",
+      "model": "product-list-page",
+      "plugins": {
+        "da": {
+          "type": "key-value-block"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "product-list-page",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "urlpath",
+          "label": "Category URL Path",
+          "description": "Category path for filtering products (e.g. tops-women/tanks-women)"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

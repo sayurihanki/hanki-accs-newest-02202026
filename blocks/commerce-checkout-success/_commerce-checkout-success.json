@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Checkout Success",
+      "id": "commerce-checkout-success",
+      "plugins": {
+        "da": {
+          "name": "commerce-checkout-success",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-checkout-success",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

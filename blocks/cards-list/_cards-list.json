@@ -1,0 +1,64 @@
+{
+  "definitions": [
+    {
+      "title": "Cards List",
+      "id": "cards-list",
+      "model": "cards-list",
+      "filter": "cards-list",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 2
+        }
+      }
+    },
+    {
+      "title": "Cards List Item",
+      "id": "cards-list-item",
+      "model": "cards-list-item",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 2,
+          "fields": [
+            { "name": "image", "selector": "div:nth-child(1)>picture>img[src]" },
+            { "name": "imageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
+            { "name": "text", "selector": "div:nth-child(2)" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cards-list-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "cards-list",
+      "components": ["cards-list-item"]
+    }
+  ]
+}

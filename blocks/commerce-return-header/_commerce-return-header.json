@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Return Header",
+      "id": "commerce-return-header",
+      "plugins": {
+        "da": {
+          "name": "commerce-return-header",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-return-header",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

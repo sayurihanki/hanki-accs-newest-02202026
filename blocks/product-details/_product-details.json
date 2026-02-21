@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Product Details",
+      "id": "product-details",
+      "plugins": {
+        "da": {
+          "name": "product-details",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "product-details",
+      "fields": []
+    }
+  ],
+  "filters": []
+}

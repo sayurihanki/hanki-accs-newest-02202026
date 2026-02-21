@@ -1,0 +1,89 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Cart",
+      "id": "commerce-cart",
+      "model": "commerce-cart",
+      "plugins": {
+        "da": {
+          "type": "key-value-block"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-cart",
+      "fields": [
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hide-heading",
+          "label": "Hide Heading",
+          "value": false
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "max-items",
+          "label": "Max Items"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hide-attributes",
+          "label": "Hide Attributes",
+          "value": false
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enable-item-quantity-update",
+          "label": "Enable Quantity Update",
+          "value": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enable-item-remove",
+          "label": "Enable Item Remove",
+          "value": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enable-estimate-shipping",
+          "label": "Enable Estimate Shipping",
+          "value": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "start-shopping-url",
+          "label": "Start Shopping URL"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "checkout-url",
+          "label": "Checkout URL"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enable-updating-product",
+          "label": "Enable Updating Product",
+          "value": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "undo-remove-item",
+          "label": "Undo Remove Item",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

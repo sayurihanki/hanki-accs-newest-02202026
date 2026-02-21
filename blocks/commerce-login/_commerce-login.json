@@ -1,0 +1,22 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Login",
+      "id": "commerce-login",
+      "plugins": {
+        "da": {
+          "name": "commerce-login",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-login",
+      "fields": []
+    }
+  ],
+  "filters": []
+}
