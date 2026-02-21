@@ -1,0 +1,4 @@
+mountpoints:
+  /:
+    url: https://content.da.live/sayurihanki/hanki-accs-newest-02202026/
+    type: markup
