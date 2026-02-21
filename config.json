@@ -3,7 +3,7 @@
     "default": {
       "commerce-core-endpoint": "https://edge-graph.adobe.io/api/c5a62906-6e1f-4b2e-abba-2f0eef9ff4d6/graphql",
       "commerce-endpoint": "https://edge-graph.adobe.io/api/c5a62906-6e1f-4b2e-abba-2f0eef9ff4d6/graphql",
-      "commerce-assets-enabled": false,
+      "commerce-assets-enabled": true,
       "headers": {
         "all": {
           "Store": "default"

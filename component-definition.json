@@ -312,6 +312,17 @@
               "unsafeHTML": "<div class=\"top-banner\"><div><div>Free shipping on orders over $50</div></div></div>"
             }
           }
+        },
+        {
+          "title": "Blog Post",
+          "id": "blog-post",
+          "plugins": {
+            "da": {
+              "name": "blog-post",
+              "rows": 1,
+              "columns": 1
+            }
+          }
         }
       ]
     },

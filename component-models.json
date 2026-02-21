@@ -303,6 +303,10 @@
     ]
   },
   {
+    "id": "blog-post",
+    "fields": []
+  },
+  {
     "id": "targeted-block",
     "fields": [
       {
