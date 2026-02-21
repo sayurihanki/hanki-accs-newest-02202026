@@ -17,14 +17,19 @@
       "image",
       "text",
       "targeted-block",
-      "product-recommendations",
-      "blog-post"
+      "product-recommendations"
     ]
   },
   {
     "id": "accordion",
     "components": [
       "accordion-item"
+    ]
+  },
+  {
+    "id": "cards-list",
+    "components": [
+      "cards-list-item"
     ]
   },
   {
@@ -37,6 +42,23 @@
     "id": "carousel",
     "components": [
       "carousel-item"
+    ]
+  },
+  {
+    "id": "circle-carousel",
+    "components": [
+      "circle-carousel-item"
+    ]
+  },
+  {
+    "id": "circle-carousel-item",
+    "components": []
+  },
+  {
+    "id": "circle-carousel-cell",
+    "components": [
+      "text",
+      "image"
     ]
   },
   {
@@ -54,6 +76,48 @@
     "components": [
       "text",
       "image"
+    ]
+  },
+  {
+    "id": "search-bar",
+    "components": []
+  },
+  {
+    "id": "store-locator",
+    "components": [
+      "store-locator-item"
+    ]
+  },
+  {
+    "id": "store-locator-item",
+    "components": []
+  },
+  {
+    "id": "store-locator-cell",
+    "components": [
+      "text"
+    ]
+  },
+  {
+    "id": "table",
+    "components": [
+      "table-row"
+    ]
+  },
+  {
+    "id": "table-row",
+    "components": []
+  },
+  {
+    "id": "table-cell",
+    "components": [
+      "text"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tab-item"
     ]
   }
 ]

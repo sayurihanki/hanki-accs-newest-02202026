@@ -40,14 +40,7 @@ function readConfig(block) {
 }
 
 export default function decorate(block) {
-  // #region agent log
-  fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-verification.js:decorate-entry',message:'age-verification decorate called',data:{blockExists:!!block,blockChildren:block?.children?.length},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-  // #endregion
-
   if (localStorage.getItem(STORAGE_KEY) === 'true') {
-    // #region agent log
-    fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-verification.js:already-verified',message:'user already verified',data:{},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-    // #endregion
     block.remove();
     return;
   }
@@ -55,10 +48,6 @@ export default function decorate(block) {
   const {
     title, yesText, noText, redirectUrl,
   } = readConfig(block);
-
-  // #region agent log
-  fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-verification.js:config-read',message:'config parsed',data:{title,yesText,noText,redirectUrl},timestamp:Date.now(),hypothesisId:'H2'})}).catch(()=>{});
-  // #endregion
 
   block.textContent = '';
 

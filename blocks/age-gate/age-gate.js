@@ -104,15 +104,8 @@ function readConfig(block) {
 }
 
 export default async function decorate(block) {
-  // #region agent log
-  fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-gate.js:decorate-entry',message:'age-gate decorate called',data:{blockExists:!!block,blockChildren:block?.children?.length,blockHTML:block?.innerHTML?.substring(0,200)},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-  // #endregion
-
   const decision = localStorage.getItem(DECISION_KEY) || getCookie(DECISION_KEY);
   if (decision === 'true') {
-    // #region agent log
-    fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-gate.js:already-verified',message:'user already verified, removing block',data:{decision},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-    // #endregion
     block.remove();
     return;
   }
@@ -128,10 +121,6 @@ export default async function decorate(block) {
     buttonText,
     errorMessage,
   } = readConfig(block);
-
-  // #region agent log
-  fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-gate.js:config-read',message:'config parsed',data:{minAge,storageDuration,title,message,buttonText,errorMessage},timestamp:Date.now(),hypothesisId:'H2'})}).catch(()=>{});
-  // #endregion
 
   block.innerHTML = '';
 
@@ -165,10 +154,6 @@ export default async function decorate(block) {
   const yearInput = modal.querySelector('#age-gate-year');
   const submitButton = modal.querySelector('.age-gate-button');
   const errorElement = modal.querySelector('.age-gate-error');
-
-  // #region agent log
-  fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-gate.js:overlay-appended',message:'overlay appended to body',data:{overlayInDOM:!!document.querySelector('.age-gate-overlay'),modalInDOM:!!document.querySelector('.age-gate-modal'),monthInput:!!monthInput,dayInput:!!dayInput,yearInput:!!yearInput},timestamp:Date.now(),hypothesisId:'H3'})}).catch(()=>{});
-  // #endregion
 
   trapFocus(overlay, [monthInput, dayInput, yearInput, submitButton]);
   setTimeout(() => monthInput.focus(), 0);
@@ -210,9 +195,6 @@ export default async function decorate(block) {
       return;
     }
 
-    // #region agent log
-    fetch('http://127.0.0.1:7693/ingest/9a61ad9b-3ed6-4704-bebd-c9ca464b8a88',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'611808'},body:JSON.stringify({sessionId:'611808',location:'age-gate.js:age-calc',message:'age calculated',data:{dob:dob.toISOString(),calculatedAge:calculateAge(dob),minAge,passes:calculateAge(dob)>=minAge},timestamp:Date.now(),hypothesisId:'H4'})}).catch(()=>{});
-    // #endregion
     if (calculateAge(dob) >= minAge) {
       localStorage.setItem(DECISION_KEY, 'true');
       setCookie(DECISION_KEY, 'true', storageDuration);
