@@ -615,6 +615,17 @@
           }
         },
         {
+          "title": "Form 2",
+          "id": "form-2",
+          "plugins": {
+            "da": {
+              "name": "form-2",
+              "rows": 2,
+              "columns": 1
+            }
+          }
+        },
+        {
           "title": "Form",
           "id": "form",
           "model": "form",

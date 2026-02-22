@@ -26,7 +26,8 @@
           "component": "text",
           "valueType": "string",
           "name": "formUrl",
-          "label": "Form Data URL",
+          "label": "Form Definition URL",
+          "description": "Paste a form JSON URL, or a DA sheet link (https://da.live/sheet#/...)",
           "required": true
         },
         {
@@ -40,6 +41,7 @@
           "valueType": "string",
           "name": "submitUrl",
           "label": "Submit URL",
+          "description": "Webhook/API endpoint that receives form submissions (JSON POST)",
           "required": true
         },
         {

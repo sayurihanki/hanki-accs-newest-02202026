@@ -1,25 +1,64 @@
+/* --- Block-level messages --- */
+.form .form-block-message,
+.form .form-status {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
+}
+
+.form .form-block-message[data-type='error'],
+.form .form-status[data-type='error'] {
+  color: var(--color-negative-700, #b42318);
+}
+
+.form .form-status[data-type='success'] {
+  color: var(--color-positive-700, #0f8a43);
+  font-weight: 600;
+}
+
+.form .form-status[data-type='info'] {
+  color: var(--color-neutral-700, #555);
+}
+
+.form form[data-submitting='true'] {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* --- Layout --- */
 .form .field-wrapper {
   display: grid;
   grid-auto-flow: row;
   align-items: center;
 }
 
-.form fieldset {
-  display: grid;
-  grid-auto-flow: row;
-  margin: 0;
-  border: none;
-  padding: 0;
-}
-
 .form form > .field-wrapper + .field-wrapper,
-.form form fieldset .field-wrapper + .field-wrapper {
+.form form fieldset .field-wrapper + .field-wrapper,
+.form form > .form-status {
   margin-top: 24px;
 }
 
 .form form > .selection-wrapper + .selection-wrapper,
 .form form fieldset .selection-wrapper + .selection-wrapper {
   margin-top: 0.25em;
+}
+
+/* --- Conditional fields --- */
+.form .conditional-field {
+  transition: opacity 0.2s ease, max-height 0.25s ease;
+}
+
+.form .conditional-field[hidden] {
+  display: none;
+}
+
+/* --- Fieldsets --- */
+.form fieldset {
+  display: grid;
+  grid-auto-flow: row;
+  margin: 0;
+  border: none;
+  padding: 0;
 }
 
 @media (min-width: 600px) {
@@ -41,6 +80,7 @@
   }
 }
 
+/* --- Labels & legends --- */
 .form label,
 .form fieldset > legend {
   margin-bottom: 0.25em;
@@ -53,6 +93,21 @@
   font-weight: normal;
 }
 
+.form label[data-required]::after {
+  content: '*';
+  color: firebrick;
+  margin-inline-start: 0.5ch;
+}
+
+/* --- Help text --- */
+.form .field-help {
+  margin: 4px 0 0;
+  font-size: var(--body-font-size-xs, 0.75rem);
+  color: var(--color-neutral-600, #666);
+  line-height: 1.4;
+}
+
+/* --- Inputs, selects, textareas --- */
 .form input,
 .form select,
 .form textarea {
@@ -60,30 +115,32 @@
   display: block;
   width: 100%;
   margin: 0;
-  padding: 0.5em;
-  border-radius: 4px;
-  border: 1px solid var(--dark-color);
+  padding: 0.625em 0.75em;
+  border-radius: 6px;
+  border: 1px solid var(--color-neutral-400, #bbb);
   background-color: var(--background-color);
   color: var(--text-color);
   font-size: var(--body-font-size-s);
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form textarea {
   resize: vertical;
+  min-height: 5em;
 }
 
 .form input:hover,
 .form select:hover,
 .form textarea:hover {
-  border: 1px solid var(--text-color);
+  border-color: var(--color-neutral-600, #666);
 }
 
 .form input:focus,
 .form select:focus,
 .form textarea:focus {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
+  outline: none;
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--link-color) 20%, transparent);
 }
 
 .form .selection-wrapper input {
@@ -95,10 +152,6 @@
   .form select,
   .form textarea {
     max-width: 50vw;
-  }
-
-  .form .button {
-    max-width: max-content;
   }
 }
 
@@ -116,12 +169,58 @@
   gap: 1ch;
 }
 
-.form label[data-required]::after {
-  content: '*';
-  color: firebrick;
-  margin-inline-start: 1ch;
+/* --- Buttons --- */
+.form .submit-wrapper,
+.form .reset-wrapper {
+  display: inline-block;
 }
 
+.form .submit-wrapper + .reset-wrapper {
+  margin-top: 0;
+  margin-inline-start: 12px;
+}
+
+.form .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625em 1.5em;
+  border-radius: 6px;
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.form button[type='submit'].button {
+  background-color: var(--color-neutral-900, #1b1b1b);
+  color: var(--color-neutral-50, #fff);
+  border: 1px solid var(--color-neutral-900, #1b1b1b);
+}
+
+.form button[type='submit'].button:hover {
+  opacity: 0.88;
+}
+
+.form button[type='submit'].button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form button[type='reset'].button {
+  background-color: transparent;
+  color: var(--color-neutral-700, #555);
+  border: 1px solid var(--color-neutral-400, #bbb);
+}
+
+.form button[type='reset'].button:hover {
+  border-color: var(--color-neutral-600, #666);
+  color: var(--color-neutral-900, #1b1b1b);
+}
+
+/* --- Toggle --- */
 .form .toggle-wrapper .switch {
   position: relative;
   display: inline-block;
@@ -140,7 +239,7 @@
   cursor: pointer;
   inset: 0;
   border-radius: 28px;
-  background-color: var(--dark-color);
+  background-color: var(--color-neutral-400, #bbb);
   transition: background-color 0.2s;
 }
 
