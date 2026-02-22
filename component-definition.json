@@ -631,7 +631,7 @@
           "plugins": {
             "da": {
               "name": "form-3",
-              "rows": 3,
+              "rows": 2,
               "columns": 1
             }
           }

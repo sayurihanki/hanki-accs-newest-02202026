@@ -1,23 +1,3 @@
-const SVG = {
-  chevron: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-    + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
-    + '<polyline points="6 9 12 15 18 9"/></svg>',
-  arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-    + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
-    + '<line x1="5" y1="12" x2="19" y2="12"/>'
-    + '<polyline points="12 5 19 12 12 19"/></svg>',
-  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-    + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
-    + '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>'
-    + '<polyline points="22 4 12 14.01 9 11.01"/></svg>',
-  ring: '<svg viewBox="0 0 36 36">'
-    + '<circle class="f3-ring-track" cx="18" cy="18" r="15.9" pathLength="100"/>'
-    + '<circle class="f3-ring-fill" cx="18" cy="18" r="15.9" pathLength="100"/>'
-    + '</svg>',
-};
-
-const COUNTDOWN = 4;
-
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
   Object.entries(attrs).forEach(([k, v]) => {
@@ -70,7 +50,9 @@ function floatGroup(id, type, label, required, extra = {}) {
     });
     field.value = '';
     const chevron = el('span', { className: 'f3-select-chevron' });
-    chevron.innerHTML = SVG.chevron;
+    chevron.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+      + '<polyline points="6 9 12 15 18 9"/></svg>';
     wrap.append(chevron);
   } else {
     field = el('input', {
@@ -92,7 +74,7 @@ function floatGroup(id, type, label, required, extra = {}) {
   return group;
 }
 
-function choiceGroup(label, name, type, choices) {
+function choiceGroup(label, name, type, choices, extra = {}) {
   const group = el('div', { className: 'f3-group f3-span-2' });
   group.append(el('span', { className: 'f3-legend', textContent: label }));
   const container = el('div', { className: 'f3-choices' });
@@ -100,6 +82,7 @@ function choiceGroup(label, name, type, choices) {
   choices.forEach(([val, text]) => {
     const choice = el('label', { className: 'f3-choice' });
     const input = el('input', { type, name, value: val });
+    if (extra.required) input.required = true;
     choice.append(input, document.createTextNode(` ${text}`));
     container.append(choice);
   });
@@ -135,16 +118,18 @@ function consentGroup() {
   return group;
 }
 
-function submitButton(redirectUrl) {
+function submitButton() {
   const wrap = el('div', { className: 'f3-span-2' });
   const btn = el('button', {
     type: 'submit',
     className: 'f3-submit',
   });
-  if (redirectUrl) btn.dataset.redirect = redirectUrl;
   const span = el('span', { textContent: 'Send Message' });
   const arrow = el('span', { className: 'f3-submit-icon' });
-  arrow.innerHTML = SVG.arrow;
+  arrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+    + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+    + '<line x1="5" y1="12" x2="19" y2="12"/>'
+    + '<polyline points="12 5 19 12 12 19"/></svg>';
   btn.append(span, arrow);
   wrap.append(btn);
   return wrap;
@@ -190,44 +175,15 @@ function initFloatingLabels(form) {
   });
 }
 
-/* ---------- countdown redirect ---------- */
-
-function startCountdown(success, redirectUrl) {
-  const ring = success.querySelector('.f3-ring-fill');
-  const numEl = success.querySelector('.f3-countdown-number');
-  const goBtn = success.querySelector('.f3-redirect-now');
-  let remaining = COUNTDOWN;
-
-  requestAnimationFrame(() => {
-    ring.style.strokeDashoffset = '100';
-    ring.style.transition = `stroke-dashoffset ${COUNTDOWN}s linear`;
-  });
-
-  function doRedirect() {
-    window.location.href = redirectUrl;
-  }
-
-  const tick = setInterval(() => {
-    remaining -= 1;
-    numEl.textContent = remaining;
-    if (remaining <= 0) {
-      clearInterval(tick);
-      doRedirect();
-    }
-  }, 1000);
-
-  goBtn.addEventListener('click', () => {
-    clearInterval(tick);
-    doRedirect();
-  });
-}
-
 /* ---------- success screen ---------- */
 
-function showSuccess(block, formEl, redirectUrl) {
+function showSuccess(block, formEl) {
   const success = el('div', { className: 'f3-success' });
   const icon = el('div', { className: 'f3-success-icon' });
-  icon.innerHTML = SVG.check;
+  icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+    + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+    + '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>'
+    + '<polyline points="22 4 12 14.01 9 11.01"/></svg>';
 
   success.append(
     icon,
@@ -235,43 +191,18 @@ function showSuccess(block, formEl, redirectUrl) {
     el('p', { textContent: "We'll get back to you within one business day." }),
   );
 
-  if (redirectUrl) {
-    const countdown = el('div', { className: 'f3-countdown' });
-    const ringWrap = el('div', { className: 'f3-countdown-ring' });
-    ringWrap.innerHTML = SVG.ring;
-    const num = el('div', {
-      className: 'f3-countdown-number',
-      textContent: `${COUNTDOWN}`,
-    });
-    ringWrap.append(num);
-    const goBtn = el('button', {
-      className: 'f3-redirect-now',
-      textContent: 'Go now \u2192',
-    });
-    countdown.append(ringWrap, goBtn);
-    success.append(countdown);
-  }
-
   formEl.style.opacity = '0';
   formEl.style.transform = 'scale(0.97)';
 
   setTimeout(() => {
     formEl.replaceWith(success);
-    requestAnimationFrame(() => {
-      success.classList.add('f3-success--visible');
-      if (redirectUrl) startCountdown(success, redirectUrl);
-    });
+    requestAnimationFrame(() => success.classList.add('f3-success--visible'));
   }, 300);
 }
 
 /* ---------- entrance animation ---------- */
 
 function animateEntrance(form) {
-  const prefersReduced = window.matchMedia(
-    '(prefers-reduced-motion: reduce)',
-  ).matches;
-  if (prefersReduced) return;
-
   form.querySelectorAll('.f3-group, .f3-span-2').forEach((g, i) => {
     g.style.opacity = '0';
     g.style.transform = 'translateY(18px)';
@@ -290,9 +221,6 @@ export default function decorate(block) {
   const title = rows[0]?.textContent?.trim() || 'Get in touch';
   const subtitle = rows[1]?.textContent?.trim()
     || "Send us a message and we'll respond within one business day.";
-
-  const redirectLink = block.querySelector('a[href]');
-  const redirectUrl = redirectLink ? redirectLink.getAttribute('href') : null;
 
   const form = el('form', { className: 'f3-element', novalidate: '' });
 
@@ -340,7 +268,7 @@ export default function decorate(block) {
     placeholder: "Tell us what's on your mind\u2026",
   }));
   grid.append(consentGroup());
-  grid.append(submitButton(redirectUrl));
+  grid.append(submitButton());
 
   form.append(grid);
   block.replaceChildren(form);
@@ -372,12 +300,11 @@ export default function decorate(block) {
     }
 
     const btn = form.querySelector('.f3-submit');
-    const redir = btn.dataset.redirect || null;
     btn.classList.add('f3-submit--loading');
     btn.disabled = true;
 
-    await new Promise((r) => { setTimeout(r, 1200); });
+    await new Promise((r) => { setTimeout(r, 1400); });
 
-    showSuccess(block, form, redir);
+    showSuccess(block, form);
   });
 }

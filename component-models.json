@@ -879,14 +879,6 @@
         "description": "Short description shown below the title",
         "value": "Send us a message and we'll respond within one business day.",
         "required": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "redirect",
-        "label": "Redirect URL",
-        "description": "Page to redirect to after successful submission (e.g. /thank-you). Leave empty to stay on page.",
-        "required": false
       }
     ]
   },
