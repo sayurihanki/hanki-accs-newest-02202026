@@ -530,8 +530,13 @@ main > .section:first-of-type .blog-post .blog-post-wrap {
 /* Data-attribute visibility toggles */
 .blog-post[data-blogpost-showdescription='false'] .blog-post-description,
 .blog-post[data-blogpost-showmeta='false'] .blog-post-headaside,
-.blog-post[data-blogpost-showhero='false'] .blog-post-hero {
+.blog-post[data-blogpost-showhero='false'] .blog-post-hero,
+.blog-post[data-blogpost-showtoc='false'] .blog-post-toc {
   display: none;
+}
+
+.blog-post[data-blogpost-showtoc='false'] .blog-post-content {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 /* Hero ratio variants */

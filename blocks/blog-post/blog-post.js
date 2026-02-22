@@ -7,6 +7,7 @@ const DEFAULTS = {
   showdescription: true,
   showmeta: true,
   showhero: true,
+  showtoc: true,
   heroratio: 'wide',
 };
 
@@ -139,6 +140,11 @@ function readConfig(block) {
       'blogpost-showhero',
       getConfigValue(block.dataset.blogpostShowhero, sectionData, ['blogpostShowhero', 'dataBlogpostShowhero'], DEFAULTS.showhero ? 'true' : 'false'),
       DEFAULTS.showhero,
+    ),
+    showtoc: normalizeBoolean(
+      'blogpost-showtoc',
+      getConfigValue(block.dataset.blogpostShowtoc, sectionData, ['blogpostShowtoc', 'dataBlogpostShowtoc'], DEFAULTS.showtoc ? 'true' : 'false'),
+      DEFAULTS.showtoc,
     ),
     heroratio: normalizeToken(
       'blogpost-heroratio',
@@ -528,6 +534,7 @@ export default function decorate(block) {
   block.dataset.blogpostShowdescription = config.showdescription ? 'true' : 'false';
   block.dataset.blogpostShowmeta = config.showmeta ? 'true' : 'false';
   block.dataset.blogpostShowhero = config.showhero ? 'true' : 'false';
+  block.dataset.blogpostShowtoc = config.showtoc ? 'true' : 'false';
   block.dataset.blogpostHeroratio = config.heroratio;
 
   const wrapper = document.createElement('article');

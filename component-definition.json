@@ -111,7 +111,8 @@
               "rows": 1,
               "columns": 1
             }
-          }
+          },
+          "model": "blog-post"
         },
         {
           "title": "Cards List",
