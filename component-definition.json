@@ -626,6 +626,17 @@
           }
         },
         {
+          "title": "Form 3",
+          "id": "form-3",
+          "plugins": {
+            "da": {
+              "name": "form-3",
+              "rows": 3,
+              "columns": 1
+            }
+          }
+        },
+        {
           "title": "Form",
           "id": "form",
           "model": "form",
