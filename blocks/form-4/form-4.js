@@ -398,10 +398,10 @@ function buildSuccess(block, data, redirectUrl) {
     grad.setAttribute('y2', '0%');
     const s1 = document.createElementNS(ringNs, 'stop');
     s1.setAttribute('offset', '0%');
-    s1.setAttribute('stop-color', '#5b8fff');
+    s1.setAttribute('stop-color', '#8821f4');
     const s2 = document.createElementNS(ringNs, 'stop');
     s2.setAttribute('offset', '100%');
-    s2.setAttribute('stop-color', '#a78bfa');
+    s2.setAttribute('stop-color', '#6d28d9');
     grad.append(s1, s2);
     defs.append(grad);
     ringSvg.append(defs);
@@ -481,8 +481,8 @@ function initParticles(canvas) {
   let H = 0;
   let ps = [];
   const COLS = [
-    'rgba(91,143,255,', 'rgba(167,139,250,',
-    'rgba(52,211,153,', 'rgba(251,191,36,',
+    'rgba(136,33,244,', 'rgba(109,40,217,',
+    'rgba(5,150,105,', 'rgba(204,122,46,',
   ];
 
   function resize() {
@@ -542,8 +542,8 @@ function initBudgetSlider(block) {
     const v = +slider.value;
     valEl.textContent = fmtBudget(v);
     const pct = ((v - 5000) / 495000) * 100;
-    slider.style.background = `linear-gradient(to right,#5b8fff ${pct}%,`
-      + `rgba(255,255,255,.1) ${pct}%)`;
+    slider.style.background = `linear-gradient(to right,#8821f4 ${pct}%,`
+      + `rgba(0,0,0,.08) ${pct}%)`;
   }
   slider.addEventListener('input', update);
   update();
