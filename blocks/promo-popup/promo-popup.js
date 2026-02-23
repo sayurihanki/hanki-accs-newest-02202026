@@ -10,7 +10,7 @@
 const STORAGE_PREFIX = 'promo_popup_seen_';
 
 const SEGMENT_COLORS = {
-  purple: ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#FF922B', '#CC5DE8', '#20C997', '#F06595'],
+  purple: ['#a78bfa', '#c4b5fd', '#8b5cf6', '#7c3aed', '#6d28d9', '#a78bfa', '#c4b5fd', '#8b5cf6'],
   emerald: ['#34d399', '#6ee7b7', '#10b981', '#34d399', '#6ee7b7', '#10b981'],
   sunset: ['#fb923c', '#fde68a', '#f97316', '#fb923c', '#fde68a', '#f97316'],
   midnight: ['#6366f1', '#818cf8', '#4f46e5', '#6366f1', '#818cf8', '#4f46e5'],
@@ -156,6 +156,8 @@ function parseBlock(block) {
         if (label) promotions.push({ label, description, cta: null });
       }
     } else if (cells.length >= 2) {
+      const key = getTextContent(cells[0]).toLowerCase().replace(/[-\s]/g, '');
+      if (CONFIG_KEYS.includes(key)) return; /* skip config rows */
       const label = getTextContent(cells[0]).replace(/\s+/g, ' ').trim();
       const descCell = cells[1];
       const description = descCell ? (descCell.innerHTML || descCell.textContent || '').trim() : '';

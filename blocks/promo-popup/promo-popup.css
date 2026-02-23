@@ -75,15 +75,16 @@ main .promo-popup,
   text-rendering: optimizeLegibility;
 }
 
-/* Solid background — no frosted glass on modal (keeps wheel area clean) */
+/* Glassmorphic backdrop behind modal content */
 .pp-modal::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgb(136 33 244 / 6%), transparent 70%),
-    rgb(255 255 255 / 98%);
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgb(136 33 244 / 8%), transparent 70%),
+    rgb(255 255 255 / 92%);
+  backdrop-filter: blur(20px) saturate(140%);
   pointer-events: none;
   z-index: -1;
 }
@@ -256,7 +257,7 @@ main .promo-popup,
 
 .pp-headline {
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-size: clamp(1.9rem, 5.5vw, 2.5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -271,54 +272,37 @@ main .promo-popup,
 
 .pp-subheadline {
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 500;
   color: var(--color-neutral-800, #3d3d3d);
   margin: 0;
   line-height: 1.5;
 }
 
-/* ─── Sparkles ───────────────────────────────────────────────────── */
+/* ─── Sparkles (subtle) ───────────────────────────────────────────── */
 .pp-sparkle {
   position: absolute;
   color: var(--pp-accent-1);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   pointer-events: none;
-  animation: pp-twinkle 2.2s ease-in-out infinite;
-  opacity: 0.6;
+  opacity: 0.35;
 }
 
 .pp-sparkle--1 {
   top: 2px;
-  left: 6%;
-  animation-delay: 0s;
+  left: 8%;
 }
 
 .pp-sparkle--2 {
-  top: 6px;
-  right: 10%;
-  font-size: 1rem;
-  animation-delay: 0.75s;
+  top: 4px;
+  right: 12%;
+  font-size: 0.8rem;
 }
 
 .pp-sparkle--3 {
-  bottom: 0;
-  left: 28%;
-  font-size: 0.7rem;
-  animation-delay: 1.5s;
-}
-
-@keyframes pp-twinkle {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(0.8) rotate(0deg);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.2) rotate(18deg);
-  }
+  bottom: 2px;
+  left: 30%;
+  font-size: 0.65rem;
 }
 
 /* ─── Wheel wrapper (glass ring) ─────────────────────────────────── */
@@ -333,23 +317,23 @@ main .promo-popup,
   z-index: 1;
 }
 
-/* Subtle glow halo */
+/* Subtle halo — refined, less distracting */
 .pp-wheel-wrap::before {
   content: '';
   position: absolute;
-  inset: -12px;
+  inset: -10px;
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
-    rgb(136 33 244 / 30%),
-    rgb(5 150 105 / 25%),
-    rgb(136 33 244 / 30%),
-    rgb(109 40 217 / 25%),
-    rgb(136 33 244 / 30%)
+    rgb(136 33 244 / 18%),
+    rgb(109 40 217 / 14%),
+    rgb(136 33 244 / 18%),
+    rgb(5 150 105 / 12%),
+    rgb(136 33 244 / 18%)
   );
-  animation: pp-halo-spin 12s linear infinite;
-  opacity: 0.6;
-  filter: blur(8px);
+  animation: pp-halo-spin 16s linear infinite;
+  opacity: 0.5;
+  filter: blur(6px);
 }
 
 @keyframes pp-halo-spin {
@@ -386,18 +370,18 @@ main .promo-popup,
   top: 50%;
   left: 50%;
   transform-origin: left center;
-  margin-top: -0.55em;
+  margin-top: -0.5em;
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: rgb(0 0 0 / 85%);
-  text-shadow: 0 1px 0 rgb(255 255 255 / 60%);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 98%);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
   white-space: nowrap;
-  max-width: 82px;
+  max-width: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 .pp-wheel-cap {
@@ -453,16 +437,16 @@ main .promo-popup,
   width: 100%;
   max-width: 290px;
   margin: 0 auto 1rem;
-  padding: 1rem 2rem;
+  padding: 1.1rem 2rem;
   border-radius: 100px;
   border: none;
   cursor: pointer;
   background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
   color: #fff;
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 30%) inset,
     0 4px 24px rgb(136 33 244 / 25%);
@@ -567,8 +551,9 @@ main .promo-popup,
 }
 
 .pp-result-badge {
-  font-size: 1.6rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   animation: pp-bounce 0.6s ease 0.1s both;
 }
 
@@ -588,16 +573,16 @@ main .promo-popup,
 
 .pp-result-label {
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-neutral-900, #292929);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
 .pp-result-desc {
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--color-neutral-800, #3d3d3d);
   margin-bottom: 1rem;
   line-height: 1.55;
@@ -609,15 +594,15 @@ main .promo-popup,
 
 .pp-result-cta {
   display: inline-block;
-  padding: 0.75rem 2rem;
+  padding: 0.85rem 2rem;
   border-radius: 100px;
   background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
   color: #fff;
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   text-decoration: none;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   box-shadow: 0 4px 16px rgb(136 33 244 / 25%);
   transition:
     transform 0.2s var(--pp-ease-spring),
@@ -637,11 +622,11 @@ main .promo-popup,
   background: none;
   border: none;
   color: var(--color-neutral-800, #3d3d3d);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.6rem;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s;
@@ -702,8 +687,8 @@ main .promo-popup,
   }
 
   .pp-segment-label {
-    font-size: 0.6rem;
-    max-width: 68px;
+    font-size: 0.75rem;
+    max-width: 72px;
   }
 
   .pp-headline {
