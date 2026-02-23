@@ -22,4 +22,4 @@ $5 Off	$5 credit on your next order	/promo
 20% Off	Use code <strong>TWENTY</strong> — this week only	/checkout
 Gift	Free gift with any purchase over $75	/gifts
 VIP Access	Early access to our next drop	/vip
-Try Again	Better luck next time — here's <strong>5% off</strong>	/checkout
+5% Off	Better luck next time — use code <strong>TRY5</strong> at checkout	/checkout

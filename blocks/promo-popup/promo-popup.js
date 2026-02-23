@@ -219,7 +219,7 @@ function buildWheel(promotions, theme) {
   }
   wheel.appendChild(dividers);
 
-  const labelOffset = 52;
+  const labelOffset = 72;
   promotions.forEach((promo, i) => {
     const midDeg = (i + 0.5) * degPer;
     const label = document.createElement('div');
