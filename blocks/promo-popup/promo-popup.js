@@ -194,7 +194,23 @@ function parseBlock(block) {
     }
   });
 
-  return { config, promotions };
+  /* Fallback: if no promotions from table, use defaults so popup still works */
+  const DEFAULT_PROMOS = [
+    { label: '10% Off', description: 'Use code <strong>SAVE10</strong> at checkout', cta: { text: 'Claim Offer', href: '/checkout' } },
+    { label: 'Free Ship', description: 'Free shipping on orders over $50', cta: { text: 'Claim Offer', href: '/shipping' } },
+    { label: 'BOGO', description: 'Buy one, get one <strong>50% off</strong> — today only', cta: { text: 'Claim Offer', href: '/sale' } },
+    { label: '$5 Off', description: '$5 credit on your next order', cta: { text: 'Claim Offer', href: '/promo' } },
+    { label: '20% Off', description: 'Use code <strong>TWENTY</strong> — this week only', cta: { text: 'Claim Offer', href: '/checkout' } },
+    { label: 'Gift', description: 'Free gift with any purchase over $75', cta: { text: 'Claim Offer', href: '/gifts' } },
+    { label: 'VIP Access', description: 'Early access to our next drop', cta: { text: 'Claim Offer', href: '/vip' } },
+    { label: '5% Off', description: 'Better luck next time — use code <strong>TRY5</strong> at checkout', cta: { text: 'Claim Offer', href: '/checkout' } },
+  ];
+  const finalPromos = promotions.length > 0 ? promotions : DEFAULT_PROMOS;
+  if (promotions.length === 0) {
+    // eslint-disable-next-line no-console
+    console.warn('[promo-popup] No promotions parsed from table (rows:', rows.length, '). Using defaults. Check your DA.live table has 3-cell promo rows.');
+  }
+  return { config, promotions: finalPromos };
 }
 
 /* ─── Build Wheel DOM ────────────────────────────────────────────── */
@@ -519,8 +535,10 @@ function setupTrigger(config, showFn) {
 
 export default function decorate(block) {
   const { config, promotions } = parseBlock(block);
+  const debug = block.dataset.debug === 'true' || block.dataset.debug === '';
 
   if (!promotions.length) {
+    if (debug) console.warn('[promo-popup] No promotions — block hidden.');
     block.hidden = true;
     return;
   }
@@ -530,7 +548,10 @@ export default function decorate(block) {
   block.hidden = true;
 
   function showPopup() {
-    if (hasBeenSeen(blockId, config.storageDuration)) return;
+    if (hasBeenSeen(blockId, config.storageDuration)) {
+      if (debug) console.warn('[promo-popup] Blocked by storage (already seen). Use storage-duration: never to test.');
+      return;
+    }
     markSeen(blockId, config.storageDuration);
 
     const { overlay, focusFirst } = buildOverlay(config, promotions);
@@ -544,5 +565,6 @@ export default function decorate(block) {
     });
   }
 
+  if (debug) console.log('[promo-popup] Ready. Trigger:', config.trigger, '| Promotions:', promotions.length);
   setupTrigger(config, showPopup);
 }
