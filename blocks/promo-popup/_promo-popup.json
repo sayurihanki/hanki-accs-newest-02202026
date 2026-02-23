@@ -31,7 +31,21 @@
           "name": "data-subheadline",
           "label": "Subheadline",
           "description": "Supporting text below the headline",
-          "value": "One spin, one exclusive deal — just for you."
+          "value": "One spin, one deal made just for you."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "data-pill",
+          "label": "Pill Badge",
+          "value": "Exclusive offer"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "data-headline-highlight",
+          "label": "Headline Highlight",
+          "value": "Win"
         },
         {
           "component": "select",
@@ -84,15 +98,15 @@
           "valueType": "string",
           "name": "data-no-thanks-text",
           "label": "No Thanks Text",
-          "value": "No thanks"
+          "value": "No thanks, I'll skip"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "data-result-headline",
           "label": "Result Headline",
-          "description": "Text shown after winning (e.g. 'You won!')",
-          "value": "You won!"
+          "description": "Emoji or text after winning",
+          "value": "🎉"
         },
         {
           "component": "text",

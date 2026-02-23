@@ -9,17 +9,24 @@
 
 const STORAGE_PREFIX = 'promo_popup_seen_';
 
+/* Muted pastels for Glass Edition */
+const GLASS_SEGMENT_COLORS = [
+  '#e8e0f7', '#dde9f5', '#e0f0ea', '#f0e8e0',
+  '#e8e0f7', '#dde9f5', '#e0f0ea', '#f0e8e0',
+];
+
 const SEGMENT_COLORS = {
-  purple: ['#a78bfa', '#c4b5fd', '#8b5cf6', '#7c3aed', '#6d28d9', '#a78bfa', '#c4b5fd', '#8b5cf6'],
-  emerald: ['#34d399', '#6ee7b7', '#10b981', '#34d399', '#6ee7b7', '#10b981'],
-  sunset: ['#fb923c', '#fde68a', '#f97316', '#fb923c', '#fde68a', '#f97316'],
-  midnight: ['#6366f1', '#818cf8', '#4f46e5', '#6366f1', '#818cf8', '#4f46e5'],
-  minimal: ['#e5e7eb', '#d1d5db', '#9ca3af', '#e5e7eb', '#d1d5db', '#9ca3af'],
+  purple: GLASS_SEGMENT_COLORS,
+  emerald: ['#e0f0ea', '#d1f0e0', '#b8e6d0', '#e0f0ea', '#d1f0e0', '#b8e6d0'],
+  sunset: ['#fef3e0', '#fde8d0', '#fcd9b8', '#fef3e0', '#fde8d0', '#fcd9b8'],
+  midnight: ['#e8e8f5', '#ddddf0', '#d0d0eb', '#e8e8f5', '#ddddf0', '#d0d0eb'],
+  minimal: ['#f0f0f2', '#e5e5e8', '#d8d8dc', '#f0f0f2', '#e5e5e8', '#d8d8dc'],
 };
 
 const CONFIG_KEYS = [
   'trigger', 'triggerdelay', 'triggerscroll', 'storageduration',
-  'headline', 'subheadline', 'spinbuttontext', 'nothankstext',
+  'headline', 'headlinehighlight', 'subheadline', 'pill',
+  'spinbuttontext', 'nothankstext',
   'resultheadline', 'ctabuttontext', 'theme', 'showorbbg', 'showconfetti',
   'spinduration',
 ];
@@ -82,13 +89,15 @@ function parseBlock(block) {
     triggerScroll: 50,
     storageDuration: '1',
     headline: 'Spin to Win!',
-    subheadline: 'One spin, one exclusive deal — just for you.',
+    headlineHighlight: 'Win',
+    subheadline: 'One spin, one deal made just for you.',
+    pill: 'Exclusive offer',
     spinButtonText: 'Spin the Wheel',
-    noThanksText: 'No thanks',
-    resultHeadline: 'You won!',
+    noThanksText: 'No thanks, I\'ll skip',
+    resultHeadline: '🎉',
     ctaButtonText: 'Claim Offer',
     theme: 'purple',
-    showOrbBg: true,
+    showOrbBg: false,
     showConfetti: true,
     spinDuration: 4,
   };
@@ -96,7 +105,9 @@ function parseBlock(block) {
   // Read from block.dataset (DA.live model fields)
   const ds = block.dataset;
   if (ds.headline) config.headline = ds.headline;
+  if (ds.headlineHighlight !== undefined) config.headlineHighlight = ds.headlineHighlight;
   if (ds.subheadline) config.subheadline = ds.subheadline;
+  if (ds.pill !== undefined) config.pill = String(ds.pill || '').trim() || null;
   if (ds.trigger) config.trigger = ds.trigger;
   if (ds.triggerDelay) config.triggerDelay = parseFloat(ds.triggerDelay) || 3;
   if (ds.triggerScroll) config.triggerScroll = parseFloat(ds.triggerScroll) || 50;
@@ -130,7 +141,9 @@ function parseBlock(block) {
           triggerscroll: 'triggerScroll',
           storageduration: 'storageDuration',
           headline: 'headline',
+          headlinehighlight: 'headlineHighlight',
           subheadline: 'subheadline',
+          pill: 'pill',
           spinbuttontext: 'spinButtonText',
           nothankstext: 'noThanksText',
           resultheadline: 'resultHeadline',
@@ -190,26 +203,36 @@ function buildWheel(promotions, theme) {
 
   const stops = promotions.map((_, i) => {
     const color = colors[i % colors.length];
-    const start = (i * degPer).toFixed(2);
-    const end = ((i + 1) * degPer).toFixed(2);
-    return `${color} ${start}deg ${end}deg`;
+    const s = (i * degPer).toFixed(4);
+    const e = ((i + 1) * degPer).toFixed(4);
+    return `${color} ${s}deg ${e}deg`;
   }).join(', ');
-  wheel.style.background = `conic-gradient(${stops})`;
+  wheel.style.background = `conic-gradient(from -90deg, ${stops})`;
 
+  const dividers = document.createElement('div');
+  dividers.className = 'pp-dividers';
+  for (let i = 0; i < n; i += 1) {
+    const line = document.createElement('div');
+    line.className = 'pp-divider-line';
+    line.style.transform = `rotate(${i * degPer}deg)`;
+    dividers.appendChild(line);
+  }
+  wheel.appendChild(dividers);
+
+  const labelOffset = 52;
   promotions.forEach((promo, i) => {
-    const mid = (i + 0.5) * degPer;
+    const midDeg = (i + 0.5) * degPer;
     const label = document.createElement('div');
     label.className = 'pp-segment-label';
     label.textContent = promo.label;
-    label.style.transform = `rotate(${mid}deg) translateX(56px)`;
+    label.style.transform = `rotate(${midDeg}deg) translateX(${labelOffset}px)`;
     wheel.appendChild(label);
   });
 
   const cap = document.createElement('div');
   cap.className = 'pp-wheel-cap';
-  cap.innerHTML = `<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="22" cy="22" r="20" fill="white" stroke="currentColor" stroke-width="2"/>
-    <path d="M22 11 L25 18.5 L33 18.5 L27 23.5 L29.5 31 L22 26 L14.5 31 L17 23.5 L11 18.5 L19 18.5Z" fill="currentColor" opacity="0.9"/>
+  cap.innerHTML = `<svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 1L10.5 6.5H16L11.5 9.8L13.2 15.5L9 12.2L4.8 15.5L6.5 9.8L2 6.5H7.5Z" fill="#6d28d9" opacity="0.7"/>
   </svg>`;
   wheel.appendChild(cap);
 
@@ -226,25 +249,8 @@ function buildOverlay(config, promotions) {
   overlay.setAttribute('aria-labelledby', 'pp-headline-id');
   overlay.setAttribute('aria-describedby', 'pp-subheadline-id');
 
-  if (config.showOrbBg) {
-    overlay.classList.add('pp-overlay--orbs');
-  }
-  overlay.dataset.theme = config.theme || 'purple';
-
   const modal = document.createElement('div');
   modal.className = 'pp-modal';
-
-  if (config.showOrbBg) {
-    const orbContainer = document.createElement('div');
-    orbContainer.className = 'pp-orb-container';
-    orbContainer.innerHTML = `
-      <div class="pp-orb pp-orb--1"></div>
-      <div class="pp-orb pp-orb--2"></div>
-      <div class="pp-orb pp-orb--3"></div>
-      <div class="pp-orb pp-orb--4"></div>
-    `;
-    modal.appendChild(orbContainer);
-  }
 
   const closeBtn = document.createElement('button');
   closeBtn.className = 'pp-close';
@@ -252,29 +258,48 @@ function buildOverlay(config, promotions) {
   closeBtn.innerHTML = '<span class="pp-close-x"></span>';
   closeBtn.setAttribute('aria-label', 'Close popup');
 
-  const header = document.createElement('div');
-  header.className = 'pp-header';
-  header.innerHTML = `
-    <div class="pp-sparkle pp-sparkle--1">✦</div>
-    <div class="pp-sparkle pp-sparkle--2">✦</div>
-    <div class="pp-sparkle pp-sparkle--3">✦</div>
-    <h2 id="pp-headline-id" class="pp-headline">${config.headline}</h2>
-    <p id="pp-subheadline-id" class="pp-subheadline">${config.subheadline}</p>
+  const headlineHtml = config.headlineHighlight
+    ? config.headline.replace(
+      new RegExp(`(${config.headlineHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'i'),
+      '<span>$1</span>',
+    )
+    : config.headline;
+
+  const modalInner = document.createElement('div');
+  modalInner.className = 'pp-modal-inner';
+  modalInner.innerHTML = `
+    <div class="pp-header">
+      ${config.pill ? `<div class="pp-pill"><div class="pp-pill-dot"></div>${config.pill}</div>` : ''}
+      <h2 id="pp-headline-id" class="pp-headline">${headlineHtml}</h2>
+      <p id="pp-subheadline-id" class="pp-subheadline">${config.subheadline}</p>
+    </div>
   `;
+
+  const wheelSection = document.createElement('div');
+  wheelSection.className = 'pp-wheel-section';
 
   const wheelWrap = document.createElement('div');
   wheelWrap.className = 'pp-wheel-wrap';
 
+  const ring = document.createElement('div');
+  ring.className = 'pp-wheel-ring';
+
   const pointer = document.createElement('div');
   pointer.className = 'pp-pointer';
-  pointer.innerHTML = `<svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 32 L0 0 L24 0 Z" fill="#1a1a2e"/>
-    <path d="M12 26 L2 2 L22 2 Z" fill="currentColor"/>
+  pointer.innerHTML = `<svg viewBox="0 0 18 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 26 L0 0 L18 0 Z" fill="rgba(0,0,0,0.12)"/>
+    <path d="M9 22 L1.5 2 L16.5 2 Z" fill="#1f1f2e"/>
   </svg>`;
 
   const wheel = buildWheel(promotions, config.theme);
+
+  wheelWrap.appendChild(ring);
   wheelWrap.appendChild(pointer);
   wheelWrap.appendChild(wheel);
+  wheelSection.appendChild(wheelWrap);
+
+  const bottom = document.createElement('div');
+  bottom.className = 'pp-bottom';
 
   const spinBtn = document.createElement('button');
   spinBtn.className = 'pp-spin-btn';
@@ -290,12 +315,14 @@ function buildOverlay(config, promotions) {
   noThanks.type = 'button';
   noThanks.textContent = config.noThanksText;
 
+  bottom.appendChild(spinBtn);
+  bottom.appendChild(resultArea);
+  bottom.appendChild(noThanks);
+
   modal.appendChild(closeBtn);
-  modal.appendChild(header);
-  modal.appendChild(wheelWrap);
-  modal.appendChild(spinBtn);
-  modal.appendChild(resultArea);
-  modal.appendChild(noThanks);
+  modal.appendChild(modalInner);
+  modal.appendChild(wheelSection);
+  modal.appendChild(bottom);
   overlay.appendChild(modal);
 
   /* ── Spin Logic ── */
@@ -312,9 +339,10 @@ function buildOverlay(config, promotions) {
     const n = promotions.length;
     const segIdx = Math.floor(Math.random() * n);
     const degPer = 360 / n;
-    const baseOffset = (n - segIdx) * degPer - degPer / 2;
-    const extraSpins = (5 + Math.floor(Math.random() * 4)) * 360;
-    const targetDeg = currentRotation + extraSpins + baseOffset - (currentRotation % 360);
+    const midpoint = (segIdx + 0.5) * degPer;
+    const extraSpins = (6 + Math.floor(Math.random() * 4)) * 360;
+    const needed = (360 - midpoint - (currentRotation % 360) + 360) % 360;
+    const targetDeg = currentRotation + extraSpins + (needed === 0 ? 360 : needed);
 
     const spinDuration = prefersReducedMotion() ? 200 : duration;
     wheel.style.transition = `transform ${spinDuration}ms cubic-bezier(0.2, 0.8, 0.2, 1)`;
@@ -345,7 +373,7 @@ function buildOverlay(config, promotions) {
 
     resultArea.innerHTML = `
       <div class="pp-result-inner">
-        <div class="pp-result-badge">${config.resultHeadline}</div>
+        <span class="pp-result-badge">${config.resultHeadline}</span>
         <div class="pp-result-label">${promo.label}</div>
         ${promo.description ? `<div class="pp-result-desc">${promo.description}</div>` : ''}
         ${ctaHtml}

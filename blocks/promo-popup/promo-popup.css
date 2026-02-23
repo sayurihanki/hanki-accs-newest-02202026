@@ -1,27 +1,32 @@
 /**
- * Promo Popup Spinner Wheel — Site Glassmorphic
- * Aligns with modal, hero-3, form-4: light frosted glass, purple accent, site tokens.
+ * Promo Popup — Glass Edition
+ * Light frosted overlay, pill badge, muted wheel, refined typography.
  */
 
-/* ─── CSS Custom Properties (site-aligned) ─────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ─── Tokens ─────────────────────────────────────────────────────── */
 .promo-popup,
 main .promo-popup,
 .pp-overlay {
-  --pp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --pp-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --pp-accent-1: var(--main-color-accent, #8821f4);
-  --pp-accent-2: #6d28d9;
+  --pp-accent: var(--main-color-accent, #6d28d9);
+  --pp-accent-light: #8b5cf6;
+  --pp-text-primary: #0f0f1a;
+  --pp-text-secondary: #6b7280;
+  --pp-text-muted: #9ca3af;
+  --pp-radius-xl: 28px;
+  --pp-radius-lg: 18px;
+  --pp-radius-full: 100px;
 }
 
-/* Hide raw table content (config + promo rows) — only the overlay/modal is visible */
+/* Hide raw table content */
 .promo-popup > div {
   display: none;
 }
 
-/* ─── No-scroll lock ─────────────────────────────────────────────── */
 .pp-no-scroll { overflow: hidden; }
 
-/* ─── Overlay (site modal-style backdrop) ─────────────────────────── */
+/* ─── Overlay (light glass) ──────────────────────────────────────── */
 .pp-overlay {
   position: fixed;
   inset: 0;
@@ -30,11 +35,11 @@ main .promo-popup,
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgb(0 0 0 / 25%);
-  backdrop-filter: blur(8px);
+  background: rgb(240 240 248 / 60%);
+  backdrop-filter: blur(24px) saturate(160%);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s var(--pp-ease-out);
+  transition: opacity 0.35s ease;
 }
 
 .pp-overlay--visible {
@@ -43,199 +48,76 @@ main .promo-popup,
 }
 
 .pp-overlay--closing {
-  animation: pp-fade-out 0.3s var(--pp-ease-out) forwards;
+  animation: pp-overlay-out 0.3s ease forwards;
   pointer-events: none;
 }
 
-@keyframes pp-fade-out {
+@keyframes pp-overlay-out {
   to { opacity: 0; }
 }
 
-/* ─── Modal (light glassmorphic, matches modal block) ───────────────── */
-/* Glass effect on ::after so text stays crisp (no backdrop-filter on content) */
+/* ─── Modal ─────────────────────────────────────────────────────── */
 .pp-modal {
   position: relative;
-  width: min(540px, 100%);
+  width: min(480px, 100%);
   max-height: 95svh;
-  overflow: hidden auto;
-  border-radius: var(--shape-border-radius-3, 24px);
-  padding: 2.5rem 2rem 2rem;
-  background: transparent;
-  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
-  box-shadow:
-    0 0 0 1px rgb(255 255 255 / 50%) inset,
-    0 24px 80px rgb(136 33 244 / 8%),
-    0 48px 120px rgb(0 0 0 / 10%);
-  transform: translateY(12px) scale(0.92);
-  transition: transform 0.4s var(--pp-ease-spring), opacity 0.35s var(--pp-ease-out);
-  isolation: isolate;
-  /* Crisp text: avoid blur from compositing */
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: var(--pp-radius-xl);
+  font-family: 'Inter', var(--type-base-font-family, sans-serif);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+
+  background: rgb(255 255 255 / 82%);
+  backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgb(255 255 255 / 90%);
+  box-shadow:
+    0 0 0 0.5px rgb(0 0 0 / 6%),
+    0 4px 6px rgb(0 0 0 / 4%),
+    0 20px 60px rgb(0 0 0 / 12%),
+    0 60px 120px rgb(109 40 217 / 8%),
+    inset 0 1px 0 rgb(255 255 255 / 100%);
+
+  transform: translateY(24px) scale(0.95);
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
-/* Glassmorphic backdrop behind modal content */
-.pp-modal::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgb(136 33 244 / 8%), transparent 70%),
-    rgb(255 255 255 / 92%);
-  backdrop-filter: blur(20px) saturate(140%);
-  pointer-events: none;
-  z-index: -1;
-}
-
+.pp-modal::-webkit-scrollbar { display: none; }
 .pp-overlay--visible .pp-modal {
   transform: translateY(0) scale(1);
 }
 
-/* Theme overrides (after base modal for specificity) */
-.promo-popup[data-theme="emerald"],
-.pp-overlay[data-theme="emerald"] .pp-modal {
-  --pp-accent-1: #059669;
-  --pp-accent-2: #10b981;
-}
-
-.promo-popup[data-theme="sunset"],
-.pp-overlay[data-theme="sunset"] .pp-modal {
-  --pp-accent-1: #ea580c;
-  --pp-accent-2: #f59e0b;
-}
-
-.promo-popup[data-theme="midnight"],
-.pp-overlay[data-theme="midnight"] .pp-modal {
-  --pp-accent-1: #4f46e5;
-  --pp-accent-2: #6366f1;
-}
-
-.promo-popup[data-theme="minimal"],
-.pp-overlay[data-theme="minimal"] .pp-modal {
-  --pp-accent-1: #6b7280;
-  --pp-accent-2: #9ca3af;
-}
-
-/* Top shimmer (site gradient: purple → teal) */
-.pp-modal::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgb(136 33 244 / 20%) 30%,
-    rgb(109 40 217 / 25%) 50%,
-    rgb(5 150 105 / 15%) 70%,
-    transparent
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ─── Animated orbs (form-4 style: purple, teal, gold) ─────────────── */
-.pp-orb-container {
-  position: absolute;
-  inset: -20%;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.pp-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.14;
-  animation: pp-orb-drift 22s ease-in-out infinite alternate;
-}
-
-.pp-orb--1 {
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(#c4b5fd, transparent 70%);
-  top: -80px;
-  left: -80px;
-  animation-duration: 24s;
-}
-
-.pp-orb--2 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(#a78bfa, transparent 70%);
-  top: 40%;
-  right: -60px;
-  animation-duration: 28s;
-  animation-delay: -8s;
-}
-
-.pp-orb--3 {
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(#6ee7b7, transparent 70%);
-  bottom: -40px;
-  left: 20%;
-  animation-duration: 26s;
-  animation-delay: -5s;
-}
-
-.pp-orb--4 {
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(#fde68a, transparent 70%);
-  top: 10%;
-  right: 25%;
-  animation-duration: 30s;
-  animation-delay: -12s;
-  opacity: 0.1;
-}
-
-@keyframes pp-orb-drift {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(40px, -60px) scale(1.08); }
-  66% { transform: translate(-30px, 40px) scale(0.95); }
-  100% { transform: translate(20px, -25px) scale(1.03); }
-}
-
-/* ─── Close button (modal-style) ─────────────────────────────────── */
+/* ─── Close ─────────────────────────────────────────────────────── */
 .pp-close {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: none;
-  padding: 0;
-  background: rgb(0 0 0 / 8%);
-  color: var(--color-neutral-800, #3d3d3d);
+  border: 1px solid rgb(0 0 0 / 8%);
+  background: rgb(0 0 0 / 4%);
+  color: var(--pp-text-muted);
+  font-size: 0.95rem;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background 0.2s var(--pp-ease-out),
-    transform 0.2s var(--pp-ease-spring);
-  z-index: 5;
+  transition: background 0.2s, color 0.2s, transform 0.3s;
+  z-index: 10;
 }
 
 .pp-close:hover {
-  background: rgb(136 33 244 / 12%);
-  color: var(--pp-accent-1);
+  background: rgb(0 0 0 / 8%);
+  color: #374151;
   transform: rotate(90deg);
 }
 
 .pp-close-x {
   display: block;
-  width: 18px;
+  width: 12px;
   height: 2px;
   background: currentcolor;
-  position: relative;
   transform: rotate(45deg);
 }
 
@@ -247,22 +129,55 @@ main .promo-popup,
   transform: rotate(90deg);
 }
 
-/* ─── Header ─────────────────────────────────────────────────────── */
+/* ─── Modal inner ────────────────────────────────────────────────── */
+.pp-modal-inner {
+  padding: 2rem 1.75rem 1.5rem;
+}
+
 .pp-header {
-  position: relative;
   text-align: center;
-  margin-bottom: 1.5rem;
-  z-index: 1;
+}
+
+.pp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--pp-radius-full);
+  background: rgb(109 40 217 / 7%);
+  border: 1px solid rgb(109 40 217 / 12%);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pp-accent-light);
+  margin-bottom: 0.85rem;
+}
+
+.pp-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pp-accent-light);
+  animation: pp-pill-pulse 2s ease-in-out infinite;
+}
+
+@keyframes pp-pill-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.6); }
 }
 
 .pp-headline {
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: clamp(1.9rem, 5.5vw, 2.5rem);
+  font-size: clamp(1.6rem, 5vw, 2rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin: 0 0 0.5rem;
-  background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 0.45rem;
+  color: var(--pp-text-primary);
+}
+
+.pp-headline span {
+  background: linear-gradient(135deg, #6d28d9 0%, #a78bfa 100%);
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-background-clip: text;
   background-clip: text;
@@ -271,98 +186,67 @@ main .promo-popup,
 }
 
 .pp-subheadline {
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: var(--color-neutral-800, #3d3d3d);
-  margin: 0;
+  font-size: 0.9rem;
+  color: var(--pp-text-secondary);
   line-height: 1.5;
+  margin: 0;
 }
 
-/* ─── Sparkles (subtle) ───────────────────────────────────────────── */
-.pp-sparkle {
-  position: absolute;
-  color: var(--pp-accent-1);
-  font-size: 0.75rem;
-  pointer-events: none;
-  opacity: 0.35;
-}
-
-.pp-sparkle--1 {
-  top: 2px;
-  left: 8%;
-}
-
-.pp-sparkle--2 {
-  top: 4px;
-  right: 12%;
-  font-size: 0.8rem;
-}
-
-.pp-sparkle--3 {
-  bottom: 2px;
-  left: 30%;
-  font-size: 0.65rem;
-}
-
-/* ─── Wheel wrapper (glass ring) ─────────────────────────────────── */
-.pp-wheel-wrap {
+/* ─── Wheel section ──────────────────────────────────────────────── */
+.pp-wheel-section {
   position: relative;
-  width: 290px;
-  height: 290px;
-  margin: 0 auto 1.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  margin: 0;
+  padding: 1.75rem 0;
+  background: rgb(248 248 252 / 80%);
+  border-top: 1px solid rgb(0 0 0 / 5%);
+  border-bottom: 1px solid rgb(0 0 0 / 5%);
+  overflow: hidden;
 }
 
-/* Subtle halo — refined, less distracting */
-.pp-wheel-wrap::before {
+.pp-wheel-section::before {
   content: '';
   position: absolute;
-  inset: -10px;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    rgb(136 33 244 / 18%),
-    rgb(109 40 217 / 14%),
-    rgb(136 33 244 / 18%),
-    rgb(5 150 105 / 12%),
-    rgb(136 33 244 / 18%)
-  );
-  animation: pp-halo-spin 16s linear infinite;
-  opacity: 0.5;
-  filter: blur(6px);
-}
-
-@keyframes pp-halo-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Simple ring around wheel — no frosted glass */
-.pp-wheel-wrap::after {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 2px solid var(--glass-border-subtle, rgb(0 0 0 / 12%));
-  background: transparent;
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 50%) inset;
+  background: radial-gradient(circle, rgb(139 92 246 / 8%) 0%, transparent 70%);
   pointer-events: none;
 }
 
-/* ─── Wheel ───────────────────────────────────────────────────────── */
+.pp-wheel-wrap {
+  position: relative;
+  width: 264px;
+  height: 264px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pp-wheel-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgb(0 0 0 / 6%);
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ─── Wheel ─────────────────────────────────────────────────────── */
 .pp-wheel {
-  width: 268px;
-  height: 268px;
+  width: 248px;
+  height: 248px;
   border-radius: 50%;
   position: relative;
-  box-shadow:
-    0 0 0 4px rgb(255 255 255 / 50%),
-    0 8px 32px rgb(0 0 0 / 12%);
   will-change: transform;
   flex-shrink: 0;
+  box-shadow:
+    0 0 0 2px rgb(255 255 255 / 90%),
+    0 0 0 3px rgb(0 0 0 / 6%),
+    0 8px 32px rgb(0 0 0 / 12%);
 }
 
 .pp-segment-label {
@@ -370,18 +254,36 @@ main .promo-popup,
   top: 50%;
   left: 50%;
   transform-origin: left center;
-  margin-top: -0.5em;
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: rgb(255 255 255 / 98%);
-  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+  margin-top: -0.48em;
+  font-family: 'Inter', var(--type-base-font-family, sans-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgb(0 0 0 / 65%);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 60%);
   white-space: nowrap;
-  max-width: 90px;
+  max-width: 74px;
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.025em;
+}
+
+.pp-dividers {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pp-divider-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 50%;
+  background: rgb(255 255 255 / 50%);
+  transform-origin: bottom center;
 }
 
 .pp-wheel-cap {
@@ -389,85 +291,85 @@ main .promo-popup,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  z-index: 2;
-  color: var(--pp-accent-1);
-  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 15%));
+  width: 40px;
+  height: 40px;
+  z-index: 5;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 95%);
+  border: 1px solid rgb(0 0 0 / 8%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%), inset 0 1px 0 rgb(255 255 255 / 100%);
 }
 
 .pp-wheel-cap svg {
-  width: 100%;
-  height: 100%;
+  width: 18px;
+  height: 18px;
 }
 
-/* ─── Pointer ────────────────────────────────────────────────────── */
+/* ─── Pointer ───────────────────────────────────────────────────── */
 .pp-pointer {
   position: absolute;
-  top: -18px;
+  top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 40px;
-  z-index: 3;
-  color: var(--pp-accent-1);
+  z-index: 10;
   filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
-  animation: pp-pointer-pulse 1.8s ease-in-out infinite;
+  animation: pp-pointer-bob 2s ease-in-out infinite;
 }
 
 .pp-pointer svg {
-  width: 100%;
-  height: 100%;
-}
-
-@keyframes pp-pointer-pulse {
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-
-  50% {
-    transform: translateX(-50%) translateY(-4px);
-  }
-}
-
-/* ─── Spin button (hero-3 CTA style) ─────────────────────────────── */
-.pp-spin-btn {
+  width: 18px;
+  height: 26px;
   display: block;
+}
+
+@keyframes pp-pointer-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+/* ─── Bottom ────────────────────────────────────────────────────── */
+.pp-bottom {
+  padding: 1.25rem 1.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ─── Spin button ────────────────────────────────────────────────── */
+.pp-spin-btn {
   width: 100%;
-  max-width: 290px;
-  margin: 0 auto 1rem;
-  padding: 1.1rem 2rem;
-  border-radius: 100px;
+  padding: 0.85rem 2rem;
+  border-radius: var(--pp-radius-full);
   border: none;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
-  color: #fff;
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1.2rem;
+  font-family: 'Inter', var(--type-base-font-family, sans-serif);
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
   box-shadow:
-    0 0 0 1px rgb(255 255 255 / 30%) inset,
-    0 4px 24px rgb(136 33 244 / 25%);
-  transition:
-    transform 0.2s var(--pp-ease-spring),
-    box-shadow 0.2s,
-    opacity 0.2s;
+    0 1px 3px rgb(0 0 0 / 10%),
+    0 4px 20px rgb(109 40 217 / 35%),
+    inset 0 1px 0 rgb(255 255 255 / 15%);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
 
-.pp-spin-btn::before {
+.pp-spin-btn::after {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 25%), transparent);
-  animation: pp-btn-shimmer 2.5s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 20%), transparent);
+  animation: pp-btn-shimmer 3s ease-in-out infinite;
 }
 
 @keyframes pp-btn-shimmer {
@@ -475,223 +377,186 @@ main .promo-popup,
   60%, 100% { left: 100%; }
 }
 
-.pp-spin-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 .pp-spin-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow:
-    0 0 0 1px rgb(255 255 255 / 40%) inset,
-    0 8px 32px rgb(136 33 244 / 35%);
+    0 2px 8px rgb(0 0 0 / 12%),
+    0 8px 28px rgb(109 40 217 / 45%),
+    inset 0 1px 0 rgb(255 255 255 / 15%);
 }
 
 .pp-spin-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
-/* ─── Result area (glass card) ───────────────────────────────────── */
+.pp-spin-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Result ────────────────────────────────────────────────────── */
 .pp-result {
-  text-align: center;
+  width: 100%;
   max-height: 0;
   overflow: hidden;
-  transition:
-    max-height 0.55s cubic-bezier(0.34, 1.2, 0.64, 1),
-    opacity 0.4s var(--pp-ease-out);
+  transition: max-height 0.55s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.4s ease;
   opacity: 0;
-  z-index: 1;
 }
 
 .pp-result--visible {
-  max-height: 320px;
+  max-height: 260px;
   opacity: 1;
 }
 
 .pp-result-inner {
-  position: relative;
-  padding: 1.4rem;
-  border-radius: var(--shape-border-radius-2, 16px);
-  background: transparent;
-  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
-  margin-bottom: 1rem;
-  animation: pp-result-pop 0.5s var(--pp-ease-spring) forwards;
-  overflow: hidden;
+  padding: 1.2rem;
+  border-radius: var(--pp-radius-lg);
+  background: rgb(248 246 255 / 80%);
+  border: 1px solid rgb(109 40 217 / 10%);
+  text-align: center;
+  animation: pp-card-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* Frosted glass layer — only the card has this */
-.pp-result-inner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: rgb(255 255 255 / 88%);
-  backdrop-filter: var(--glass-blur-sm, blur(12px)) var(--glass-saturate, saturate(160%));
-  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 50%) inset;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.pp-result-inner > * {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes pp-result-pop {
+@keyframes pp-card-pop {
   from {
-    transform: scale(0.9);
+    transform: scale(0.9) translateY(6px);
     opacity: 0;
   }
 
   to {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     opacity: 1;
   }
 }
 
 .pp-result-badge {
-  font-size: 1.85rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  animation: pp-bounce 0.6s ease 0.1s both;
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 0.35rem;
+  animation: pp-emoji-bounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
 }
 
-@keyframes pp-bounce {
-  0% {
-    transform: scale(0);
-  }
-
-  60% {
-    transform: scale(1.15);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+@keyframes pp-emoji-bounce {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
 }
 
 .pp-result-label {
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--color-neutral-900, #292929);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;
+  color: var(--pp-accent);
+  margin-bottom: 0.3rem;
 }
 
 .pp-result-desc {
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 1.1rem;
-  color: var(--color-neutral-800, #3d3d3d);
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--pp-text-secondary);
   line-height: 1.55;
+  margin-bottom: 0.85rem;
 }
 
 .pp-result-desc strong {
-  color: var(--pp-accent-1);
+  color: var(--pp-accent);
 }
 
 .pp-result-cta {
   display: inline-block;
-  padding: 0.85rem 2rem;
-  border-radius: 100px;
-  background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--pp-radius-full);
+  background: var(--pp-accent);
   color: #fff;
-  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-family: 'Inter', var(--type-base-font-family, sans-serif);
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.88rem;
   text-decoration: none;
-  letter-spacing: 0.02em;
-  box-shadow: 0 4px 16px rgb(136 33 244 / 25%);
-  transition:
-    transform 0.2s var(--pp-ease-spring),
-    box-shadow 0.2s;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 12px rgb(109 40 217 / 30%);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .pp-result-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgb(136 33 244 / 35%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgb(109 40 217 / 40%);
   color: #fff;
 }
 
-/* ─── No thanks ───────────────────────────────────────────────────── */
+/* ─── No thanks ─────────────────────────────────────────────────── */
 .pp-no-thanks {
-  display: block;
-  width: 100%;
   background: none;
   border: none;
-  color: var(--color-neutral-800, #3d3d3d);
-  font-size: 1.05rem;
-  font-weight: 500;
-  font-family: inherit;
+  color: var(--pp-text-muted);
+  font-family: 'Inter', var(--type-base-font-family, sans-serif);
+  font-size: 0.82rem;
   cursor: pointer;
-  padding: 0.6rem;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  padding: 0.2rem 0.5rem;
   transition: color 0.2s;
-  z-index: 1;
 }
 
 .pp-no-thanks:hover {
-  color: var(--color-neutral-900, #292929);
+  color: var(--pp-text-secondary);
 }
 
-/* ─── Confetti ────────────────────────────────────────────────────── */
+/* ─── Confetti ───────────────────────────────────────────────────── */
 .pp-confetti {
   position: absolute;
   top: -10px;
   pointer-events: none;
   animation: pp-confetti-fall linear forwards;
-  z-index: 10;
-  border-radius: 2px;
+  z-index: 20;
 }
 
 @keyframes pp-confetti-fall {
   0% {
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translateY(0) rotate(0deg);
     opacity: 1;
   }
 
   100% {
-    transform: translateY(400px) rotate(720deg) scale(0.3);
+    transform: translateY(480px) rotate(540deg);
     opacity: 0;
   }
 }
 
 /* ─── Reduced motion ─────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .pp-spin-btn::before { animation: none; }
-  .pp-pointer { animation: none; }
-  .pp-sparkle { animation: none; }
-  .pp-orb { animation: none; }
-  .pp-wheel-wrap::before { animation: none; }
-  .pp-wheel { transition-duration: 0.2s !important; }
-  .pp-result { transition: none; }
-}
-
-/* ─── Responsive ──────────────────────────────────────────────────── */
-@media (max-width: 500px) {
-  .pp-modal {
-    padding: 2rem 1.1rem 1.5rem;
-  }
-
-  .pp-wheel-wrap {
-    width: 250px;
-    height: 250px;
+  .pp-pill-dot,
+  .pp-spin-btn::after,
+  .pp-pointer {
+    animation: none;
   }
 
   .pp-wheel {
+    transition-duration: 0.15s !important;
+  }
+
+  .pp-result {
+    transition: none;
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .pp-modal-inner {
+    padding: 1.6rem 1.25rem 1.25rem;
+  }
+
+  .pp-bottom {
+    padding: 1rem 1.25rem 1.5rem;
+  }
+
+  .pp-wheel-wrap {
     width: 230px;
     height: 230px;
   }
 
-  .pp-segment-label {
-    font-size: 0.75rem;
-    max-width: 72px;
+  .pp-wheel {
+    width: 214px;
+    height: 214px;
   }
 
-  .pp-headline {
-    font-size: 1.5rem;
+  .pp-segment-label {
+    font-size: 0.6rem;
+    max-width: 60px;
   }
 }
