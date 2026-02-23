@@ -7,7 +7,7 @@
   padding: 4px;
   background: var(--glass-bg, rgb(255 255 255 / 52%));
   backdrop-filter: var(--glass-blur-sm, blur(12px));
-  -webkit-backdrop-filter: var(--glass-blur-sm, blur(12px));
+  backdrop-filter: var(--glass-blur-sm, blur(12px));
   border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   border-radius: var(--shape-border-radius-3, 24px);
 }
@@ -60,7 +60,7 @@
 .tabs .tabs-list button[aria-selected='true'] {
   background: rgb(255 255 255 / 80%);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: var(--accent-1, #8821f4);
   border-color: rgb(136 33 244 / 15%);
   box-shadow:
@@ -74,7 +74,7 @@
   padding: 24px;
   background: var(--glass-bg, rgb(255 255 255 / 52%));
   backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
-  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   border-radius: var(--shape-border-radius-3, 24px);
   box-shadow: var(--shadow-glass,

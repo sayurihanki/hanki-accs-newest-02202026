@@ -70,7 +70,7 @@
   color: var(--color-neutral-50);
   background: rgb(0 0 0 / 35%);
   backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 10%);
   border-radius: var(--shape-border-radius-2, 8px);
   position: relative;
@@ -102,7 +102,7 @@
   border-radius: 50%;
   background: rgb(255 255 255 / 40%);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: 1.5px solid rgb(255 255 255 / 30%);
   cursor: pointer;
   transition:
@@ -141,7 +141,7 @@
   padding: 0;
   background: rgb(0 0 0 / 30%);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgb(255 255 255 / 12%);
   border-radius: 50%;
   text-align: center;

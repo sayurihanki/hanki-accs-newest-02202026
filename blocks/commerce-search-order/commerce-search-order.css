@@ -9,7 +9,7 @@ main .commerce-search-order-container {
 .commerce-search-order .dropin-card {
   background: rgb(255 255 255 / 55%);
   backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 70%);
   border-radius: 2.8rem;
   padding: 4rem 4.8rem;
@@ -67,7 +67,7 @@ main .commerce-search-order-container {
 .commerce-search-order .dropin-card input {
   background: rgb(255 255 255 / 50%);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgb(0 0 0 / 8%);
   border-radius: var(--shape-border-radius-2, 8px);
   padding: 1.2rem 1.6rem;

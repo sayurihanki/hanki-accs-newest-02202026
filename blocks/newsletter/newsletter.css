@@ -23,7 +23,7 @@
 
   background: var(--newsletter-bg);
   backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
-  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   color: var(--newsletter-text);
   position: relative;
   overflow: hidden;
@@ -356,7 +356,7 @@
   border-radius: var(--shape-border-radius-2, 8px);
   background: var(--newsletter-input-bg);
   backdrop-filter: var(--glass-blur-sm, blur(12px));
-  -webkit-backdrop-filter: var(--glass-blur-sm, blur(12px));
+  backdrop-filter: var(--glass-blur-sm, blur(12px));
   color: var(--newsletter-input-text);
   font: var(--type-body-1-default-font);
   letter-spacing: var(--type-body-1-default-letter-spacing);

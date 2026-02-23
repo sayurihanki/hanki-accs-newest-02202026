@@ -1,0 +1,683 @@
+/**
+ * Promo Popup Spinner Wheel — Site Glassmorphic
+ * Aligns with modal, hero-3, form-4: light frosted glass, purple accent, site tokens.
+ */
+
+/* ─── CSS Custom Properties (site-aligned) ─────────────────────────── */
+.promo-popup,
+main .promo-popup,
+.pp-overlay {
+  --pp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --pp-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --pp-accent-1: var(--main-color-accent, #8821f4);
+  --pp-accent-2: #6d28d9;
+}
+
+/* ─── No-scroll lock ─────────────────────────────────────────────── */
+.pp-no-scroll { overflow: hidden; }
+
+/* ─── Overlay (site modal-style backdrop) ─────────────────────────── */
+.pp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--pp-ease-out);
+}
+
+.pp-overlay--visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.pp-overlay--closing {
+  animation: pp-fade-out 0.3s var(--pp-ease-out) forwards;
+  pointer-events: none;
+}
+
+@keyframes pp-fade-out {
+  to { opacity: 0; }
+}
+
+/* ─── Modal (light glassmorphic, matches modal block) ───────────────── */
+.pp-modal {
+  position: relative;
+  width: min(540px, 100%);
+  max-height: 95svh;
+  overflow: hidden auto;
+  border-radius: var(--shape-border-radius-3, 24px);
+  padding: 2.5rem 2rem 2rem;
+  background: rgb(255 255 255 / 85%);
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 50%) inset,
+    0 24px 80px rgb(136 33 244 / 8%),
+    0 48px 120px rgb(0 0 0 / 10%);
+  transform: translateY(12px) scale(0.92);
+  transition: transform 0.4s var(--pp-ease-spring), opacity 0.35s var(--pp-ease-out);
+}
+
+.pp-overlay--visible .pp-modal {
+  transform: translateY(0) scale(1);
+}
+
+/* Theme overrides (after base modal for specificity) */
+.promo-popup[data-theme="emerald"],
+.pp-overlay[data-theme="emerald"] .pp-modal {
+  --pp-accent-1: #059669;
+  --pp-accent-2: #10b981;
+}
+
+.promo-popup[data-theme="sunset"],
+.pp-overlay[data-theme="sunset"] .pp-modal {
+  --pp-accent-1: #ea580c;
+  --pp-accent-2: #f59e0b;
+}
+
+.promo-popup[data-theme="midnight"],
+.pp-overlay[data-theme="midnight"] .pp-modal {
+  --pp-accent-1: #4f46e5;
+  --pp-accent-2: #6366f1;
+}
+
+.promo-popup[data-theme="minimal"],
+.pp-overlay[data-theme="minimal"] .pp-modal {
+  --pp-accent-1: #6b7280;
+  --pp-accent-2: #9ca3af;
+}
+
+/* Top shimmer (site gradient: purple → teal) */
+.pp-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(136 33 244 / 20%) 30%,
+    rgb(109 40 217 / 25%) 50%,
+    rgb(5 150 105 / 15%) 70%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Inner radial glow */
+.pp-modal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgb(136 33 244 / 6%),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Animated orbs (form-4 style: purple, teal, gold) ─────────────── */
+.pp-orb-container {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pp-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.14;
+  animation: pp-orb-drift 22s ease-in-out infinite alternate;
+}
+
+.pp-orb--1 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(#c4b5fd, transparent 70%);
+  top: -80px;
+  left: -80px;
+  animation-duration: 24s;
+}
+
+.pp-orb--2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(#a78bfa, transparent 70%);
+  top: 40%;
+  right: -60px;
+  animation-duration: 28s;
+  animation-delay: -8s;
+}
+
+.pp-orb--3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(#6ee7b7, transparent 70%);
+  bottom: -40px;
+  left: 20%;
+  animation-duration: 26s;
+  animation-delay: -5s;
+}
+
+.pp-orb--4 {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(#fde68a, transparent 70%);
+  top: 10%;
+  right: 25%;
+  animation-duration: 30s;
+  animation-delay: -12s;
+  opacity: 0.1;
+}
+
+@keyframes pp-orb-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -60px) scale(1.08); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+  100% { transform: translate(20px, -25px) scale(1.03); }
+}
+
+/* ─── Close button (modal-style) ─────────────────────────────────── */
+.pp-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgb(0 0 0 / 5%);
+  color: var(--color-neutral-700, #666);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s var(--pp-ease-out),
+    transform 0.2s var(--pp-ease-spring);
+  z-index: 5;
+}
+
+.pp-close:hover {
+  background: rgb(136 33 244 / 8%);
+  color: var(--pp-accent-1);
+  transform: rotate(90deg);
+}
+
+.pp-close-x {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentcolor;
+  position: relative;
+  transform: rotate(45deg);
+}
+
+.pp-close-x::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentcolor;
+  transform: rotate(90deg);
+}
+
+/* ─── Header ─────────────────────────────────────────────────────── */
+.pp-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  z-index: 1;
+}
+
+.pp-headline {
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.pp-subheadline {
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-size: 0.95rem;
+  color: var(--color-neutral-600, #8f8f8f);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ─── Sparkles ───────────────────────────────────────────────────── */
+.pp-sparkle {
+  position: absolute;
+  color: var(--pp-accent-1);
+  font-size: 0.85rem;
+  pointer-events: none;
+  animation: pp-twinkle 2.2s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.pp-sparkle--1 {
+  top: 2px;
+  left: 6%;
+  animation-delay: 0s;
+}
+
+.pp-sparkle--2 {
+  top: 6px;
+  right: 10%;
+  font-size: 1rem;
+  animation-delay: 0.75s;
+}
+
+.pp-sparkle--3 {
+  bottom: 0;
+  left: 28%;
+  font-size: 0.7rem;
+  animation-delay: 1.5s;
+}
+
+@keyframes pp-twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(18deg);
+  }
+}
+
+/* ─── Wheel wrapper (glass ring) ─────────────────────────────────── */
+.pp-wheel-wrap {
+  position: relative;
+  width: 290px;
+  height: 290px;
+  margin: 0 auto 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Subtle glow halo */
+.pp-wheel-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgb(136 33 244 / 30%),
+    rgb(5 150 105 / 25%),
+    rgb(136 33 244 / 30%),
+    rgb(109 40 217 / 25%),
+    rgb(136 33 244 / 30%)
+  );
+  animation: pp-halo-spin 12s linear infinite;
+  opacity: 0.6;
+  filter: blur(8px);
+}
+
+@keyframes pp-halo-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Glass ring around wheel */
+.pp-wheel-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--glass-border, rgb(255 255 255 / 70%));
+  background: var(--glass-bg, rgb(255 255 255 / 52%));
+  backdrop-filter: var(--glass-blur-sm, blur(12px));
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 40%) inset;
+  pointer-events: none;
+}
+
+/* ─── Wheel ───────────────────────────────────────────────────────── */
+.pp-wheel {
+  width: 268px;
+  height: 268px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow:
+    0 0 0 4px rgb(255 255 255 / 50%),
+    0 8px 32px rgb(0 0 0 / 12%);
+  will-change: transform;
+  flex-shrink: 0;
+}
+
+.pp-segment-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: left center;
+  margin-top: -0.55em;
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgb(0 0 0 / 85%);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 60%);
+  white-space: nowrap;
+  max-width: 82px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  letter-spacing: 0.03em;
+}
+
+.pp-wheel-cap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+  color: var(--pp-accent-1);
+  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 15%));
+}
+
+.pp-wheel-cap svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Pointer ────────────────────────────────────────────────────── */
+.pp-pointer {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 40px;
+  z-index: 3;
+  color: var(--pp-accent-1);
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
+  animation: pp-pointer-pulse 1.8s ease-in-out infinite;
+}
+
+.pp-pointer svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes pp-pointer-pulse {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
+/* ─── Spin button (hero-3 CTA style) ─────────────────────────────── */
+.pp-spin-btn {
+  display: block;
+  width: 100%;
+  max-width: 290px;
+  margin: 0 auto 1rem;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
+  color: #fff;
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 30%) inset,
+    0 4px 24px rgb(136 33 244 / 25%);
+  transition:
+    transform 0.2s var(--pp-ease-spring),
+    box-shadow 0.2s,
+    opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.pp-spin-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 25%), transparent);
+  animation: pp-btn-shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes pp-btn-shimmer {
+  0% { left: -100%; }
+  60%, 100% { left: 100%; }
+}
+
+.pp-spin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pp-spin-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 40%) inset,
+    0 8px 32px rgb(136 33 244 / 35%);
+}
+
+.pp-spin-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ─── Result area (glass card) ───────────────────────────────────── */
+.pp-result {
+  text-align: center;
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.55s cubic-bezier(0.34, 1.2, 0.64, 1),
+    opacity 0.4s var(--pp-ease-out);
+  opacity: 0;
+  z-index: 1;
+}
+
+.pp-result--visible {
+  max-height: 320px;
+  opacity: 1;
+}
+
+.pp-result-inner {
+  padding: 1.4rem;
+  border-radius: var(--shape-border-radius-2, 16px);
+  background: var(--glass-bg, rgb(255 255 255 / 52%));
+  backdrop-filter: var(--glass-blur-sm, blur(12px));
+  border: 1px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 50%) inset;
+  margin-bottom: 1rem;
+  animation: pp-result-pop 0.5s var(--pp-ease-spring) forwards;
+}
+
+@keyframes pp-result-pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pp-result-badge {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+  animation: pp-bounce 0.6s ease 0.1s both;
+}
+
+@keyframes pp-bounce {
+  0% {
+    transform: scale(0);
+  }
+
+  60% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pp-result-label {
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-neutral-900, #292929);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.pp-result-desc {
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-size: 0.9rem;
+  color: var(--color-neutral-600, #8f8f8f);
+  margin-bottom: 1rem;
+  line-height: 1.55;
+}
+
+.pp-result-desc strong {
+  color: var(--pp-accent-1);
+}
+
+.pp-result-cta {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--pp-accent-1), var(--pp-accent-2));
+  color: #fff;
+  font-family: var(--type-base-font-family, adobe-clean, sans-serif);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 16px rgb(136 33 244 / 25%);
+  transition:
+    transform 0.2s var(--pp-ease-spring),
+    box-shadow 0.2s;
+}
+
+.pp-result-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgb(136 33 244 / 35%);
+  color: #fff;
+}
+
+/* ─── No thanks ───────────────────────────────────────────────────── */
+.pp-no-thanks {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--color-neutral-500, #b8b8b8);
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+  z-index: 1;
+}
+
+.pp-no-thanks:hover {
+  color: var(--color-neutral-700, #666);
+}
+
+/* ─── Confetti ────────────────────────────────────────────────────── */
+.pp-confetti {
+  position: absolute;
+  top: -10px;
+  pointer-events: none;
+  animation: pp-confetti-fall linear forwards;
+  z-index: 10;
+  border-radius: 2px;
+}
+
+@keyframes pp-confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(400px) rotate(720deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .pp-spin-btn::before { animation: none; }
+  .pp-pointer { animation: none; }
+  .pp-sparkle { animation: none; }
+  .pp-orb { animation: none; }
+  .pp-wheel-wrap::before { animation: none; }
+  .pp-wheel { transition-duration: 0.2s !important; }
+  .pp-result { transition: none; }
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .pp-modal {
+    padding: 2rem 1.1rem 1.5rem;
+  }
+
+  .pp-wheel-wrap {
+    width: 250px;
+    height: 250px;
+  }
+
+  .pp-wheel {
+    width: 230px;
+    height: 230px;
+  }
+
+  .pp-segment-label {
+    font-size: 0.6rem;
+    max-width: 68px;
+  }
+
+  .pp-headline {
+    font-size: 1.5rem;
+  }
+}

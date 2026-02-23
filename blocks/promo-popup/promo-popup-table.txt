@@ -1,0 +1,20 @@
+promo-popup
+headline	Spin to Win!
+subheadline	One spin, one exclusive deal — just for you.
+trigger	immediate
+trigger-delay	3
+trigger-scroll	50
+storage-duration	session
+theme	purple
+spin-button-text	Spin the Wheel
+no-thanks-text	No thanks
+result-headline	You won!
+cta-button-text	Claim Offer
+10% Off	Use code SAVE10	/checkout
+Free Ship	Free shipping on $50+
+BOGO	Buy one, get one 50% off — today only	/sale
+$5 Off	$5 credit on your next order	/promo
+20% Off	Use code TWENTY — this week only	/checkout
+Gift	Free gift with any purchase over $75	/gifts
+VIP Access	Early access to our next drop	/vip
+Try Again	Better luck next time — here's 5% off	/checkout

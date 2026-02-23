@@ -77,7 +77,7 @@
   align-items: center;
   background: var(--search-bar-form-bg);
   backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
-  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   border: var(--search-bar-form-border-width) solid var(--search-bar-form-border);
   border-radius: var(--search-bar-radius);
   box-shadow: var(--search-bar-form-shadow);
@@ -218,7 +218,7 @@
 .search-bar-results {
   background: var(--search-bar-results-bg);
   backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
-  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   border: var(--search-bar-form-border-width) solid var(--search-bar-results-border);
   border-radius: var(--search-bar-radius);
   box-shadow: var(--search-bar-results-shadow);

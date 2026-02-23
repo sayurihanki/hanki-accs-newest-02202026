@@ -10,7 +10,7 @@
 header .nav-wrapper {
   background: rgb(255 255 255 / 70%);
   backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
   width: 100%;
   z-index: 3;
   position: fixed;
@@ -299,7 +299,7 @@ header nav .nav-sections ul > li:empty {
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper {
     background: rgb(255 255 255 / 82%);
     backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
     border: 1px solid rgb(255 255 255 / 70%);
     border-radius: var(--shape-border-radius-3, 24px);
     box-shadow:
@@ -419,7 +419,7 @@ header nav .nav-tools-panel {
   box-shadow: var(--shadow-glass, 0 2px 16px 0 rgb(0 0 0 / 16%));
   background: rgb(255 255 255 / 75%);
   backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 70%);
   border-radius: 0 0 var(--shape-border-radius-2, 8px) var(--shape-border-radius-2, 8px);
   top: var(--nav-height);
@@ -586,7 +586,7 @@ header .nav-search-input .search_autocomplete .popover-container {
   height: 100%;
   background: rgb(0 0 0 / 30%);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -599,7 +599,7 @@ header .nav-search-input .search_autocomplete .popover-container {
 #auth-combine-wrapper {
   background: rgb(255 255 255 / 85%);
   backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 70%);
   border-radius: var(--shape-border-radius-3, 24px);
   box-shadow:
@@ -720,7 +720,7 @@ li
 .overlay {
   background: rgb(0 0 0 / 25%) !important;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   display: none;
   inset: 0;
   position: fixed;
@@ -764,7 +764,7 @@ li
   header nav[aria-expanded='true'] .nav-tools {
     background: rgb(255 255 255 / 80%);
     backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
     bottom: 0;
     height: auto;
     left: 0;
@@ -844,7 +844,7 @@ li
   header nav .nav-sections ul > li.nav-drop.active .submenu-wrapper {
     background: rgb(255 255 255 / 85%);
     backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
     display: block;
     height: 100%;
     left: 0;
@@ -862,7 +862,7 @@ li
   header nav .nav-sections ul > li.nav-drop .submenu-header {
     background: rgb(255 255 255 / 85%);
     backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
     height: var(--spacing-large);
     left: 0;
     position: fixed;
@@ -913,7 +913,7 @@ li
   border: 1px solid rgb(255 255 255 / 70%);
   background: rgb(255 255 255 / 80%);
   backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
   border-radius: var(--shape-border-radius-2, 8px);
 }
 

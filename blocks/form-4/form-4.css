@@ -199,7 +199,7 @@
 .form-4 .f4-card {
   background: rgb(255 255 255 / 55%);
   backdrop-filter: blur(var(--f4-blur)) saturate(160%);
-  -webkit-backdrop-filter: blur(var(--f4-blur)) saturate(160%);
+  backdrop-filter: blur(var(--f4-blur)) saturate(160%);
   border: 1px solid rgb(255 255 255 / 70%);
   border-radius: 2.8rem;
   overflow: hidden;
@@ -268,7 +268,7 @@
   font-weight: 700;
   background: linear-gradient(135deg, var(--f4-a) 0%, var(--f4-a2) 50%, var(--f4-a3) 100%);
   background-clip: text;
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -523,7 +523,7 @@
   appearance: none;
   caret-color: var(--f4-a);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .form-4 .f4-fi::placeholder {
@@ -645,7 +645,7 @@
   transition: all 0.2s;
   user-select: none;
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .form-4 .f4-pc label:hover {
@@ -743,7 +743,7 @@
   border: 1px solid var(--f4-gb);
   border-radius: var(--f4-rs);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   transition: border-color 0.2s;
 }
 
@@ -828,7 +828,7 @@
   transition: all 0.3s;
   background: var(--f4-glass);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
 }

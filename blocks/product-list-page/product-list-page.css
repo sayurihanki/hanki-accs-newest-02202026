@@ -32,7 +32,7 @@
     position: relative;
     background: var(--glass-bg, rgb(255 255 255 / 52%));
     backdrop-filter: var(--glass-blur-sm, blur(12px));
-    -webkit-backdrop-filter: var(--glass-blur-sm, blur(12px));
+    backdrop-filter: var(--glass-blur-sm, blur(12px));
     border: 1px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
     border-radius: var(--shape-border-radius-2, 8px);
     transition:
@@ -114,7 +114,7 @@
 .block.product-list-page .search__facets {
     background: var(--glass-bg, rgb(255 255 255 / 52%));
     backdrop-filter: var(--glass-blur-sm, blur(12px));
-    -webkit-backdrop-filter: var(--glass-blur-sm, blur(12px));
+    backdrop-filter: var(--glass-blur-sm, blur(12px));
     border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
     border-radius: var(--shape-border-radius-2, 8px);
     padding: var(--spacing-small);

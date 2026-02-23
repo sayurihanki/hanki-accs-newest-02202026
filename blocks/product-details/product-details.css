@@ -14,7 +14,7 @@
   color: var(--color-neutral-800);
   background: var(--glass-bg, rgb(255 255 255 / 52%));
   backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
-  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   border-radius: var(--shape-border-radius-3, 24px);
   padding: var(--spacing-medium);

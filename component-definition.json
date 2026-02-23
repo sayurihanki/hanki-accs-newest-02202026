@@ -851,6 +851,18 @@
           }
         },
         {
+          "title": "Promo Popup Spinner Wheel",
+          "id": "promo-popup",
+          "model": "promo-popup",
+          "plugins": {
+            "da": {
+              "name": "promo-popup",
+              "rows": 20,
+              "columns": 3
+            }
+          }
+        },
+        {
           "title": "Promotional Hero",
           "id": "promotional-hero",
           "plugins": {

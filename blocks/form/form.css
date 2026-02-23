@@ -123,7 +123,7 @@
   border: 1px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
   background: var(--glass-bg, rgb(255 255 255 / 52%));
   backdrop-filter: var(--glass-blur-sm, blur(12px));
-  -webkit-backdrop-filter: var(--glass-blur-sm, blur(12px));
+  backdrop-filter: var(--glass-blur-sm, blur(12px));
   color: var(--color-neutral-900, #292929);
   font-size: var(--body-font-size-s);
   transition:
@@ -232,7 +232,7 @@
 .form button[type='reset'].button {
   background: var(--glass-bg, rgb(255 255 255 / 52%));
   backdrop-filter: var(--glass-blur-xs, blur(8px));
-  -webkit-backdrop-filter: var(--glass-blur-xs, blur(8px));
+  backdrop-filter: var(--glass-blur-xs, blur(8px));
   color: var(--color-neutral-700, #666);
   border: 1.5px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
   transition:
