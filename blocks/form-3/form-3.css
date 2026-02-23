@@ -405,6 +405,72 @@
   margin: 0;
 }
 
+/* --- Countdown redirect --- */
+
+.form-3 .f3-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.form-3 .f3-countdown-ring {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.form-3 .f3-countdown-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.form-3 .f3-ring-track {
+  fill: none;
+  stroke: var(--f3-border);
+  stroke-width: 2;
+}
+
+.form-3 .f3-ring-fill {
+  fill: none;
+  stroke: var(--f3-gold);
+  stroke-width: 2.5;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  stroke-linecap: round;
+}
+
+.form-3 .f3-countdown-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--f3-gold);
+}
+
+.form-3 .f3-redirect-now {
+  background: none;
+  border: 1px solid var(--f3-border);
+  border-radius: var(--f3-radius);
+  color: var(--f3-gold);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: border-color var(--f3-transition), background var(--f3-transition);
+}
+
+.form-3 .f3-redirect-now:hover {
+  border-color: var(--f3-gold);
+  background: rgb(201 169 110 / 8%);
+}
+
 /* --- Submit button --- */
 
 .form-3 .f3-submit {

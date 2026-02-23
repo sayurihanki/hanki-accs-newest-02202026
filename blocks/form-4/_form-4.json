@@ -1,11 +1,11 @@
 {
   "definitions": [
     {
-      "title": "Form 3",
-      "id": "form-3",
+      "title": "Form 4",
+      "id": "form-4",
       "plugins": {
         "da": {
-          "name": "form-3",
+          "name": "form-4",
           "rows": 3,
           "columns": 1
         }
@@ -14,15 +14,15 @@
   ],
   "models": [
     {
-      "id": "form-3",
+      "id": "form-4",
       "fields": [
         {
           "component": "text",
           "valueType": "string",
           "name": "title",
           "label": "Form Title",
-          "description": "Heading displayed at the top of the form",
-          "value": "Get in touch",
+          "description": "Heading displayed at the top of the form (use a newline to split into two lines with gradient emphasis on the second)",
+          "value": "Tell us about\nyour vision",
           "required": false
         },
         {
@@ -31,7 +31,7 @@
           "name": "subtitle",
           "label": "Form Subtitle",
           "description": "Short description shown below the title",
-          "value": "Send us a message and we'll respond within one business day.",
+          "value": "We craft digital experiences that endure. Share the details below and our team will respond within one business day.",
           "required": false
         },
         {

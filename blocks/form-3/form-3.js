@@ -175,9 +175,46 @@ function initFloatingLabels(form) {
   });
 }
 
+/* ---------- countdown redirect ---------- */
+
+const COUNTDOWN = 4;
+
+function startCountdown(success, redirectUrl) {
+  const ring = success.querySelector('.f3-ring-fill');
+  const numEl = success.querySelector('.f3-countdown-number');
+  const goBtn = success.querySelector('.f3-redirect-now');
+  let remaining = COUNTDOWN;
+
+  requestAnimationFrame(() => {
+    ring.style.strokeDashoffset = '0';
+    ring.style.transition = `stroke-dashoffset ${COUNTDOWN}s linear`;
+    requestAnimationFrame(() => {
+      ring.style.strokeDashoffset = '100';
+    });
+  });
+
+  function doRedirect() {
+    window.location.href = redirectUrl;
+  }
+
+  const tick = setInterval(() => {
+    remaining -= 1;
+    numEl.textContent = remaining;
+    if (remaining <= 0) {
+      clearInterval(tick);
+      doRedirect();
+    }
+  }, 1000);
+
+  goBtn.addEventListener('click', () => {
+    clearInterval(tick);
+    doRedirect();
+  });
+}
+
 /* ---------- success screen ---------- */
 
-function showSuccess(block, formEl) {
+function showSuccess(block, formEl, redirectUrl) {
   const success = el('div', { className: 'f3-success' });
   const icon = el('div', { className: 'f3-success-icon' });
   icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
@@ -191,12 +228,35 @@ function showSuccess(block, formEl) {
     el('p', { textContent: "We'll get back to you within one business day." }),
   );
 
+  if (redirectUrl) {
+    const countdown = el('div', { className: 'f3-countdown' });
+    const ringWrap = el('div', { className: 'f3-countdown-ring' });
+    ringWrap.innerHTML = '<svg viewBox="0 0 36 36">'
+      + '<circle class="f3-ring-track" cx="18" cy="18" r="15.9" pathLength="100"/>'
+      + '<circle class="f3-ring-fill" cx="18" cy="18" r="15.9" pathLength="100"/>'
+      + '</svg>';
+    const num = el('div', {
+      className: 'f3-countdown-number',
+      textContent: `${COUNTDOWN}`,
+    });
+    ringWrap.append(num);
+    const goBtn = el('button', {
+      className: 'f3-redirect-now',
+      textContent: 'Go now \u2192',
+    });
+    countdown.append(ringWrap, goBtn);
+    success.append(countdown);
+  }
+
   formEl.style.opacity = '0';
   formEl.style.transform = 'scale(0.97)';
 
   setTimeout(() => {
     formEl.replaceWith(success);
-    requestAnimationFrame(() => success.classList.add('f3-success--visible'));
+    requestAnimationFrame(() => {
+      success.classList.add('f3-success--visible');
+      if (redirectUrl) startCountdown(success, redirectUrl);
+    });
   }, 300);
 }
 
@@ -221,6 +281,9 @@ export default function decorate(block) {
   const title = rows[0]?.textContent?.trim() || 'Get in touch';
   const subtitle = rows[1]?.textContent?.trim()
     || "Send us a message and we'll respond within one business day.";
+
+  const redirectLink = rows[2]?.querySelector('a[href]');
+  const redirectUrl = redirectLink ? redirectLink.getAttribute('href') : null;
 
   const form = el('form', { className: 'f3-element', novalidate: '' });
 
@@ -305,6 +368,6 @@ export default function decorate(block) {
 
     await new Promise((r) => { setTimeout(r, 1400); });
 
-    showSuccess(block, form);
+    showSuccess(block, form, redirectUrl);
   });
 }
