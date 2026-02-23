@@ -44,6 +44,9 @@ function getStorageKey(blockId) {
 
 function hasBeenSeen(blockId, duration) {
   try {
+    if (!duration || String(duration).toLowerCase() === 'never' || String(duration).toLowerCase() === 'off') {
+      return false; /* always show, never remember */
+    }
     if (duration === 'session' || duration === '0') {
       return !!sessionStorage.getItem(getStorageKey(blockId));
     }
@@ -60,6 +63,9 @@ function hasBeenSeen(blockId, duration) {
 
 function markSeen(blockId, duration) {
   try {
+    if (!duration || String(duration).toLowerCase() === 'never' || String(duration).toLowerCase() === 'off') {
+      return; /* don't remember */
+    }
     if (duration === 'session' || duration === '0') {
       sessionStorage.setItem(getStorageKey(blockId), '1');
     } else {
@@ -127,10 +133,10 @@ function parseBlock(block) {
   }
 
   const promotions = [];
-  const rows = [...block.querySelectorAll(':scope > div')];
+  const rows = [...block.children].filter((el) => el.tagName === 'DIV');
 
   rows.forEach((row) => {
-    const cells = [...row.querySelectorAll(':scope > div')];
+    const cells = [...row.children].filter((el) => el.tagName === 'DIV');
     if (cells.length === 2) {
       const key = getTextContent(cells[0]).toLowerCase().replace(/[-\s]/g, '');
       const val = getTextContent(cells[1]);
