@@ -2,10 +2,6 @@
   position: relative;
 }
 
-
-
-
-
 .carousel nav[aria-label="Carousel Slide Controls"] {
   position: relative;
   margin: auto;
@@ -26,7 +22,7 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   overflow: scroll clip;
-  border-radius: 20px;
+  border-radius: var(--shape-border-radius-3, 24px);
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
@@ -63,22 +59,29 @@
   width: 100%;
   object-fit: cover;
   box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: var(--shape-border-radius-3, 24px);
   background-color: rgb(0 0 0 / 10%);
-  border: 1px solid var(--color-neutral-300);
+  border: 1px solid rgb(255 255 255 / 15%);
 }
 
 .carousel .carousel-slide .carousel-slide-content {
   z-index: 1;
-  padding: 16px;
+  padding: 20px 24px;
   color: var(--color-neutral-50);
-  background-color: rgb(0 0 0 / 30%);
+  background: rgb(0 0 0 / 35%);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: var(--shape-border-radius-2, 8px);
   position: relative;
   width: var(--slide-content-width, auto);
   margin: 10% auto;
   text-align: center;
   font-size: 20px;
   line-height: 30px;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 6%) inset,
+    0 8px 32px rgb(0 0 0 / 15%);
 }
 
 .carousel .carousel-slide-indicators {
@@ -87,26 +90,34 @@
   justify-content: center;
   gap: 6px 12px;
   padding: 12px;
-  background-color: var(--light-color);
+  background: transparent;
   line-height: 0;
 }
 
 .carousel .carousel-slide-indicator button {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   margin: 0;
   padding: 0;
   border-radius: 50%;
-  background-color: var(--color-neutral-600);
-  transition: background-color 0.2s;
-  border: none;
+  background: rgb(255 255 255 / 40%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgb(255 255 255 / 30%);
   cursor: pointer;
+  transition:
+    background 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.3s var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
 }
 
 .carousel .carousel-slide-indicator button:disabled,
 .carousel .carousel-slide-indicator button:hover,
 .carousel .carousel-slide-indicator button:focus-visible {
-  background-color: var(--color-brand-1000);
+  background: var(--accent-1, #8821f4);
+  border-color: var(--accent-1, #8821f4);
+  box-shadow: 0 0 16px rgb(136 33 244 / 40%);
+  transform: scale(1.2);
 }
 
 .carousel .carousel-navigation-buttons {
@@ -128,17 +139,25 @@
   height: 44px;
   margin: 0;
   padding: 0;
-  transition: background-color 0.2s;
-  background-color: rgb(0 0 0 / 50%);
-  border: none;
-  border-radius: 0;
+  background: rgb(0 0 0 / 30%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  transition:
+    background 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.2s var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)),
+    box-shadow 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .carousel .carousel-navigation-buttons button:hover,
 .carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background: rgb(136 33 244 / 60%);
+  border-color: rgb(136 33 244 / 40%);
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgb(136 33 244 / 30%);
 }
 
 .carousel .carousel-navigation-buttons button::after {
@@ -147,8 +166,8 @@
   border: 2px solid;
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 10px;
+  width: 10px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);

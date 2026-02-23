@@ -12,15 +12,56 @@
 }
 
 .cards > ul > li {
-  border: none;
-  background-color: var(--color-brand-1000);
-  border-radius: 20px;
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
+  background: rgb(255 255 255 / 55%);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-radius: var(--shape-border-radius-3, 24px);
   padding: 20px;
-  color: var(--background-color);
+  color: var(--color-neutral-900, #292929);
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;
   text-align: center;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 50%) inset,
+    0 4px 6px rgb(0 0 0 / 3%),
+    0 24px 80px rgb(136 33 244 / 6%),
+    0 48px 120px rgb(0 0 0 / 4%);
+  transition:
+    transform 0.4s var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)),
+    box-shadow 0.4s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  position: relative;
+  overflow: hidden;
+}
+
+.cards > ul > li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(136 33 244 / 15%) 30%,
+    rgb(109 40 217 / 20%) 50%,
+    rgb(5 150 105 / 12%) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.cards > ul > li:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 60%) inset,
+    0 8px 16px rgb(0 0 0 / 5%),
+    0 32px 80px rgb(136 33 244 / 10%),
+    0 48px 120px rgb(0 0 0 / 8%);
+  border-color: rgb(136 33 244 / 15%);
 }
 
 .cards .cards-card-body {
@@ -34,6 +75,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  border-radius: var(--shape-border-radius-2, 8px);
 }
 
 .cards > ul > li img {
@@ -41,4 +84,9 @@
   height: 100px;
   aspect-ratio: initial;
   object-fit: cover;
+  transition: transform 0.5s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.cards > ul > li:hover img {
+  transform: scale(1.05);
 }

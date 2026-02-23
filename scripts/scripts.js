@@ -130,6 +130,34 @@ async function loadEager(doc) {
   }
 }
 
+function initScrollAnimations(main) {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    main.querySelectorAll('.section').forEach((s) => s.classList.add('appear'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('appear');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
+  );
+
+  main.querySelectorAll('.section').forEach((section) => {
+    if (section === main.querySelector('.section:first-of-type')) {
+      section.classList.add('appear');
+    } else {
+      observer.observe(section);
+    }
+  });
+}
+
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
@@ -139,6 +167,8 @@ async function loadLazy(doc) {
 
   const main = doc.querySelector('main');
   await loadSections(main);
+
+  initScrollAnimations(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

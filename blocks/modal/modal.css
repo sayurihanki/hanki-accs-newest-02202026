@@ -3,37 +3,79 @@ body.modal-open {
 }
 
 .modal dialog {
-    --dialog-border-radius: var(--shape-border-radius-2);
+    --dialog-border-radius: var(--shape-border-radius-3, 24px);
 
     overscroll-behavior: none;
-    border: var(--shape-border-width-1) solid var(--color-neutral-400);
+    border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
     border-radius: var(--dialog-border-radius);
     width: 100vw;
+    background: rgb(255 255 255 / 85%);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    box-shadow:
+        0 0 0 1px rgb(255 255 255 / 50%) inset,
+        0 24px 80px rgb(136 33 244 / 8%),
+        0 48px 120px rgb(0 0 0 / 10%);
+    animation: modalIn 0.4s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal dialog::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgb(136 33 244 / 20%) 30%,
+        rgb(109 40 217 / 25%) 50%,
+        rgb(5 150 105 / 15%) 70%,
+        transparent
+    );
+    pointer-events: none;
+    z-index: 1;
 }
 
 .modal dialog .modal-content {
     overflow-y: auto;
     overscroll-behavior: none;
     max-height: calc(100dvh - 60px);
+    padding: var(--spacing-medium, 24px);
 }
 
 .modal dialog::backdrop {
-    background-color: rgb(0 0 0 / 50%);
+    background: rgb(0 0 0 / 25%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .modal .close-button {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 48px;
-    height: 48px;
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
     margin: 0;
     border: none;
-    border-radius: 0;
+    border-radius: 50%;
     padding: 0;
-    background-color: transparent;
-    color: var(--color-brand-600);
+    background: rgb(0 0 0 / 5%);
+    color: var(--color-neutral-700, #666);
     line-height: 0;
+    z-index: 2;
+    transition:
+        background 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+        transform 0.2s var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
+}
+
+.modal .close-button:hover {
+    background: rgb(136 33 244 / 8%);
+    transform: rotate(90deg);
 }
 
 .modal .close-button .icon.icon-close {
@@ -51,9 +93,9 @@ body.modal-open {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
-    width: 24px;
+    width: 18px;
     height: 2px;
-    border-radius: var(--shape-border-radius-1);
+    border-radius: var(--shape-border-radius-1, 3px);
     background-color: currentcolor;
 }
 
@@ -69,6 +111,18 @@ body.modal-open {
     padding: 0;
 }
 
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
 @media (min-width: 600px) {
     .modal dialog {
         width: 80vw;
@@ -77,5 +131,11 @@ body.modal-open {
 
     .modal dialog .modal-content {
         max-height: calc(100vh - 90px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal dialog {
+        animation: none;
     }
 }

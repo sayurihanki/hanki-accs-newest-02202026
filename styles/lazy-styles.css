@@ -1,1 +1,156 @@
-/* add global styles that can be loaded post LCP here */
+/* ============================================================
+   Glassmorphic Background System & Scroll Animations
+   Loaded post-LCP to avoid blocking initial render
+   ============================================================ */
+
+/* Animated floating orbs behind page content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 600px 600px at 15% 20%, #c4b5fd, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 75% 15%, #a78bfa, transparent 70%),
+    radial-gradient(ellipse 450px 450px at 60% 80%, #6ee7b7, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 25% 75%, #fde68a, transparent 70%);
+  opacity: 0.16;
+  filter: blur(120px);
+  animation: drift 25s ease-in-out infinite alternate;
+}
+
+/* Subtle grid pattern overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(136 33 244 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(136 33 244 / 3%) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 70%);
+}
+
+/* ============================================================
+   Keyframe Animations
+   ============================================================ */
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -50px) scale(1.08); }
+  66% { transform: translate(-30px, 40px) scale(0.96); }
+  100% { transform: translate(20px, -25px) scale(1.04); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ============================================================
+   Scroll-Triggered Section Entrance Animations
+   Sections start hidden, become visible when .appear is added
+   ============================================================ */
+
+main > .section {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+main > .section:first-of-type {
+  opacity: 1;
+  transform: none;
+}
+
+main > .section.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children within appearing sections */
+main > .section.appear > div > * {
+  animation: fadeInUp 0.5s var(--ease-out) both;
+}
+
+main > .section.appear > div > *:nth-child(1) { animation-delay: 0.05s; }
+main > .section.appear > div > *:nth-child(2) { animation-delay: 0.1s; }
+main > .section.appear > div > *:nth-child(3) { animation-delay: 0.15s; }
+main > .section.appear > div > *:nth-child(4) { animation-delay: 0.2s; }
+main > .section.appear > div > *:nth-child(5) { animation-delay: 0.25s; }
+main > .section.appear > div > *:nth-child(6) { animation-delay: 0.3s; }
+main > .section.appear > div > *:nth-child(n+7) { animation-delay: 0.35s; }
+
+/* ============================================================
+   Reduced Motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+
+  main > .section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  main > .section.appear > div > * {
+    animation: none;
+  }
+}
