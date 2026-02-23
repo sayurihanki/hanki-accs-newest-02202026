@@ -35,8 +35,8 @@ main .promo-popup,
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgb(240 240 248 / 60%);
-  backdrop-filter: blur(24px) saturate(160%);
+  background: rgb(180 180 210 / 25%);
+  backdrop-filter: blur(24px) saturate(150%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease;
@@ -59,7 +59,7 @@ main .promo-popup,
 /* ─── Modal ─────────────────────────────────────────────────────── */
 .pp-modal {
   position: relative;
-  width: min(480px, 100%);
+  width: min(520px, 100%);
   max-height: 95svh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -67,9 +67,9 @@ main .promo-popup,
   font-family: 'Inter', var(--type-base-font-family, sans-serif);
   -webkit-font-smoothing: antialiased;
 
-  background: rgb(255 255 255 / 82%);
-  backdrop-filter: blur(40px) saturate(200%);
-  border: 1px solid rgb(255 255 255 / 90%);
+  background: rgb(255 255 255 / 22%);
+  backdrop-filter: blur(36px) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 45%);
   box-shadow:
     0 0 0 0.5px rgb(0 0 0 / 6%),
     0 4px 6px rgb(0 0 0 / 4%),
@@ -142,11 +142,11 @@ main .promo-popup,
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.28rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: var(--pp-radius-full);
   background: rgb(109 40 217 / 7%);
   border: 1px solid rgb(109 40 217 / 12%);
-  font-size: 0.68rem;
+  font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -168,11 +168,11 @@ main .promo-popup,
 }
 
 .pp-headline {
-  font-size: clamp(1.6rem, 5vw, 2rem);
+  font-size: clamp(2.8rem, 7vw, 3.8rem);
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.1;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
   color: var(--pp-text-primary);
 }
 
@@ -186,7 +186,7 @@ main .promo-popup,
 }
 
 .pp-subheadline {
-  font-size: 0.9rem;
+  font-size: 1.65rem;
   color: var(--pp-text-secondary);
   line-height: 1.5;
   margin: 0;
@@ -200,7 +200,8 @@ main .promo-popup,
   justify-content: center;
   margin: 0;
   padding: 1.75rem 0;
-  background: rgb(248 248 252 / 80%);
+  background: rgb(248 248 252 / 18%);
+  backdrop-filter: blur(24px) saturate(140%);
   border-top: 1px solid rgb(0 0 0 / 5%);
   border-bottom: 1px solid rgb(0 0 0 / 5%);
   overflow: hidden;
@@ -256,12 +257,12 @@ main .promo-popup,
   transform-origin: left center;
   margin-top: -0.48em;
   font-family: 'Inter', var(--type-base-font-family, sans-serif);
-  font-size: 0.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: rgb(0 0 0 / 65%);
+  color: rgb(0 0 0 / 80%);
   text-shadow: 0 1px 0 rgb(255 255 255 / 60%);
   white-space: nowrap;
-  max-width: 74px;
+  max-width: 95px;
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
@@ -347,7 +348,7 @@ main .promo-popup,
   border: none;
   cursor: pointer;
   font-family: 'Inter', var(--type-base-font-family, sans-serif);
-  font-size: 0.95rem;
+  font-size: 1.85rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   color: #fff;
@@ -409,9 +410,11 @@ main .promo-popup,
 }
 
 .pp-result-inner {
-  padding: 1.2rem;
+  padding: 1.6rem;
   border-radius: var(--pp-radius-lg);
-  background: rgb(248 246 255 / 80%);
+  background: rgb(248 246 255 / 20%);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgb(255 255 255 / 40%);
   border: 1px solid rgb(109 40 217 / 10%);
   text-align: center;
   animation: pp-card-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -430,7 +433,7 @@ main .promo-popup,
 }
 
 .pp-result-badge {
-  font-size: 1.8rem;
+  font-size: 3.2rem;
   display: block;
   margin-bottom: 0.35rem;
   animation: pp-emoji-bounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
@@ -442,7 +445,7 @@ main .promo-popup,
 }
 
 .pp-result-label {
-  font-size: 1.3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--pp-accent);
@@ -450,7 +453,7 @@ main .promo-popup,
 }
 
 .pp-result-desc {
-  font-size: 0.9rem;
+  font-size: 1.65rem;
   color: var(--pp-text-secondary);
   line-height: 1.55;
   margin-bottom: 0.85rem;
@@ -462,13 +465,13 @@ main .promo-popup,
 
 .pp-result-cta {
   display: inline-block;
-  padding: 0.6rem 1.4rem;
+  padding: 0.85rem 2rem;
   border-radius: var(--pp-radius-full);
   background: var(--pp-accent);
   color: #fff;
   font-family: 'Inter', var(--type-base-font-family, sans-serif);
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 1.5rem;
   text-decoration: none;
   letter-spacing: 0.01em;
   box-shadow: 0 2px 12px rgb(109 40 217 / 30%);
@@ -487,7 +490,7 @@ main .promo-popup,
   border: none;
   color: var(--pp-text-muted);
   font-family: 'Inter', var(--type-base-font-family, sans-serif);
-  font-size: 0.82rem;
+  font-size: 1.5rem;
   cursor: pointer;
   padding: 0.2rem 0.5rem;
   transition: color 0.2s;
@@ -556,7 +559,7 @@ main .promo-popup,
   }
 
   .pp-segment-label {
-    font-size: 0.6rem;
-    max-width: 60px;
+    font-size: 1.25rem;
+    max-width: 80px;
   }
 }

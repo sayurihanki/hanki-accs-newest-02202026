@@ -15,6 +15,8 @@ A premium glassmorphic pop-up with an animated spinner wheel. Visitors trigger t
 
 The file uses **tabs** between columns and **newlines** between rows.
 
+**Important:** Paste the **entire** table including all 8 promotion rows (10% Off through Try Again). Fewer rows = fewer wheel segments (e.g. 3 rows = 3 segments).
+
 ---
 
 ## Content Model
