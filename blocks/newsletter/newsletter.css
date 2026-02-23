@@ -1,16 +1,16 @@
 .newsletter {
-  --newsletter-bg: var(--color-neutral-200);
+  --newsletter-bg: rgb(255 255 255 / 55%);
   --newsletter-text: var(--color-neutral-900);
   --newsletter-muted: var(--color-neutral-700);
-  --newsletter-border: var(--color-neutral-400);
-  --newsletter-input-bg: var(--color-neutral-50);
+  --newsletter-border: var(--glass-border-subtle, rgb(0 0 0 / 8%));
+  --newsletter-input-bg: var(--glass-bg, rgb(255 255 255 / 52%));
   --newsletter-input-text: var(--color-neutral-900);
-  --newsletter-button-empty-bg: var(--color-neutral-300);
+  --newsletter-button-empty-bg: rgb(0 0 0 / 6%);
   --newsletter-button-empty-text: var(--color-neutral-700);
-  --newsletter-button-empty-border: var(--color-neutral-300);
-  --newsletter-button-filled-bg: var(--color-neutral-900);
+  --newsletter-button-empty-border: rgb(0 0 0 / 8%);
+  --newsletter-button-filled-bg: var(--accent-1, #8821f4);
   --newsletter-button-filled-text: var(--color-neutral-50);
-  --newsletter-button-filled-border: var(--color-neutral-900);
+  --newsletter-button-filled-border: var(--accent-1, #8821f4);
   --newsletter-block-padding-y: clamp(24px, 5vw, 56px);
   --newsletter-block-padding-x: clamp(16px, 4vw, 40px);
   --newsletter-space-heading-subheading: var(--spacing-small);
@@ -22,11 +22,19 @@
   --newsletter-form-gap: var(--newsletter-space-heading-subheading);
 
   background: var(--newsletter-bg);
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   color: var(--newsletter-text);
   position: relative;
   overflow: hidden;
-  border-radius: var(--shape-border-radius-2);
+  border-radius: var(--shape-border-radius-3, 24px);
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   padding: var(--newsletter-block-padding-y) var(--newsletter-block-padding-x);
+  box-shadow: var(--shadow-glass,
+    0 0 0 1px rgb(255 255 255 / 50%) inset,
+    0 4px 6px rgb(0 0 0 / 3%),
+    0 24px 80px rgb(136 33 244 / 6%),
+    0 48px 120px rgb(0 0 0 / 6%));
 }
 
 .newsletter-container[data-full-width='true'] .newsletter-wrapper {
@@ -345,17 +353,33 @@
   min-height: var(--newsletter-control-height);
   width: 100%;
   border: 1px solid var(--newsletter-border);
-  border-radius: var(--shape-border-radius-2);
+  border-radius: var(--shape-border-radius-2, 8px);
   background: var(--newsletter-input-bg);
+  backdrop-filter: var(--glass-blur-sm, blur(12px));
+  -webkit-backdrop-filter: var(--glass-blur-sm, blur(12px));
   color: var(--newsletter-input-text);
   font: var(--type-body-1-default-font);
   letter-spacing: var(--type-body-1-default-letter-spacing);
   padding: 0 var(--spacing-medium);
+  outline: none;
+  transition:
+    background 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.newsletter-email:hover {
+  background: var(--glass-bg-hover, rgb(255 255 255 / 68%));
+  border-color: rgb(0 0 0 / 12%);
 }
 
 .newsletter-email:focus-visible {
-  outline: 2px solid var(--color-brand-500);
-  outline-offset: 2px;
+  background: var(--glass-bg-strong, rgb(255 255 255 / 80%));
+  border-color: rgb(136 33 244 / 40%);
+  box-shadow: var(--shadow-focus,
+    0 0 0 3px rgb(136 33 244 / 10%),
+    0 0 24px rgb(136 33 244 / 5%) inset);
+  outline: none;
 }
 
 .newsletter[data-email-style='filled'] .newsletter-email {
@@ -422,14 +446,20 @@
   letter-spacing: 0.08em;
   font: var(--type-button-2-font);
   border: 1px solid var(--newsletter-button-empty-border);
+  border-radius: var(--shape-border-radius-2, 8px);
   background: var(--newsletter-button-empty-bg);
   color: var(--newsletter-button-empty-text);
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition:
+    background 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    color 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.3s var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)),
+    box-shadow 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .newsletter-submit:hover {
-  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .newsletter-submit:disabled {
@@ -443,9 +473,14 @@
 }
 
 .newsletter[data-email-state='filled'] .newsletter-submit {
-  border-color: var(--newsletter-button-filled-border);
-  background: var(--newsletter-button-filled-bg);
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent-1, #8821f4), var(--accent-2, #6d28d9));
   color: var(--newsletter-button-filled-text);
+  box-shadow: var(--shadow-button, 0 4px 24px rgb(136 33 244 / 25%));
+}
+
+.newsletter[data-email-state='filled'] .newsletter-submit:hover {
+  box-shadow: var(--shadow-button-hover, 0 8px 32px rgb(136 33 244 / 35%));
 }
 
 .newsletter[data-button-style='default'] .newsletter-submit {

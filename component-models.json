@@ -971,6 +971,98 @@
     ]
   },
   {
+    "id": "hero-3",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "urgency",
+        "label": "Urgency Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "headline",
+        "label": "Headline (paragraphs; em=italic, strong=indent)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subcopy",
+        "label": "Subcopy",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA Buttons (links)"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "trust",
+        "label": "Trust Items (list with icon prefix)"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "badges",
+        "label": "Badges (list with icon prefix)"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mainImage",
+        "label": "Main Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "railText",
+        "label": "Vertical Rail Text",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "accent1Image",
+        "label": "Accent Card 1 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "accent1Label",
+        "label": "Accent Card 1 Label",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "accent2Image",
+        "label": "Accent Card 2 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "accent2Label",
+        "label": "Accent Card 2 Label",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "hero-cta",
     "fields": []
   },

@@ -132,8 +132,9 @@ async function loadEager(doc) {
 
 function initScrollAnimations(main) {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sections = main.querySelectorAll('.section');
   if (prefersReduced) {
-    main.querySelectorAll('.section').forEach((s) => s.classList.add('appear'));
+    sections.forEach((s) => s.classList.add('appear'));
     return;
   }
 
@@ -149,7 +150,7 @@ function initScrollAnimations(main) {
     { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
   );
 
-  main.querySelectorAll('.section').forEach((section) => {
+  sections.forEach((section) => {
     if (section === main.querySelector('.section:first-of-type')) {
       section.classList.add('appear');
     } else {

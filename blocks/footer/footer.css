@@ -42,6 +42,7 @@ footer .footer div.storeview-switcher-button button.storeview-switcher-button {
 
 footer .footer p {
     margin: 0;
+    color: rgb(255 255 255 / 70%);
 }
 
 footer .footer img {
@@ -60,10 +61,6 @@ footer .footer a {
 footer .footer a:hover {
     color: #fff;
     text-shadow: 0 0 20px rgb(136 33 244 / 40%), 0 0 40px rgb(136 33 244 / 15%);
-}
-
-footer .footer p {
-    color: rgb(255 255 255 / 70%);
 }
 
 .storeview-switcher-button {

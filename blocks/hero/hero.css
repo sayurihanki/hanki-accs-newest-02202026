@@ -34,9 +34,6 @@
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 8%) inset,
     0 8px 32px rgb(0 0 0 / 20%);
-  -webkit-text-fill-color: var(--color-neutral-50);
-  -webkit-background-clip: unset;
-  background-clip: unset;
 }
 
 .hero p {

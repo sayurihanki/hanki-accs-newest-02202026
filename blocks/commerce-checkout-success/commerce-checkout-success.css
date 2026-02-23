@@ -38,6 +38,43 @@
   display: inline-block;
 }
 
+.order-confirmation__main,
+.order-confirmation__aside {
+  background: var(--glass-bg, rgb(255 255 255 / 52%));
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  -webkit-backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
+  border-radius: var(--shape-border-radius-3, 24px);
+  padding: var(--spacing-big);
+  box-shadow: var(--shadow-glass,
+    0 0 0 1px rgb(255 255 255 / 50%) inset,
+    0 4px 6px rgb(0 0 0 / 3%),
+    0 24px 80px rgb(136 33 244 / 6%),
+    0 48px 120px rgb(0 0 0 / 6%));
+  position: relative;
+  overflow: hidden;
+}
+
+.order-confirmation__main::before,
+.order-confirmation__aside::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(136 33 244 / 15%) 30%,
+    rgb(109 40 217 / 20%) 50%,
+    rgb(5 150 105 / 12%) 70%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
 .order-confirmation-footer__contact-support {
   font: var(--type-body-2-default-font);
   letter-spacing: var(--type-body-2-default-letter-spacing);
@@ -47,7 +84,7 @@
 .order-confirmation-footer__contact-support a {
   font: var(--type-body-2-strong-font);
   letter-spacing: var(--type-body-2-strong-letter-spacing);
-  color: var(--color-brand-500);
+  color: var(--accent-1, #8821f4);
   cursor: pointer;
 }
 

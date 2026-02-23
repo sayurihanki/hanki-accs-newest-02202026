@@ -12,22 +12,21 @@
 }
 
 .cards > ul > li {
-  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
+  border: 1px solid rgb(255 255 255 / 70%);
   background: rgb(255 255 255 / 55%);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border-radius: var(--shape-border-radius-3, 24px);
-  padding: 20px;
+  border-radius: 2.8rem;
+  padding: 2.4rem;
   color: var(--color-neutral-900, #292929);
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 24px;
+  font: var(--type-body-1-default-font);
+  letter-spacing: var(--type-body-1-default-letter-spacing);
   text-align: center;
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 50%) inset,
     0 4px 6px rgb(0 0 0 / 3%),
     0 24px 80px rgb(136 33 244 / 6%),
-    0 48px 120px rgb(0 0 0 / 4%);
+    0 48px 120px rgb(0 0 0 / 6%);
   transition:
     transform 0.4s var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)),
     box-shadow 0.4s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -40,18 +39,19 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 10%;
+  right: 10%;
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(136 33 244 / 15%) 30%,
-    rgb(109 40 217 / 20%) 50%,
-    rgb(5 150 105 / 12%) 70%,
+    rgb(136 33 244 / 20%) 30%,
+    rgb(109 40 217 / 25%) 50%,
+    rgb(5 150 105 / 15%) 70%,
     transparent
   );
   pointer-events: none;
+  z-index: 1;
 }
 
 .cards > ul > li:hover {
@@ -65,28 +65,37 @@
 }
 
 .cards .cards-card-body {
-  margin: var(--spacing-small);
+  margin: var(--spacing-small) 0 0;
+}
+
+.cards .cards-card-body p {
+  margin: 0;
+  font: var(--type-body-2-default-font);
+  letter-spacing: var(--type-body-2-default-letter-spacing);
+  color: var(--color-neutral-700, #666);
 }
 
 .cards .cards-card-image {
   line-height: 0;
   height: auto;
-  min-height: 150px;
+  min-height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-radius: var(--shape-border-radius-2, 8px);
+  background: rgb(255 255 255 / 40%);
+  padding: 1.6rem;
 }
 
 .cards > ul > li img {
   width: auto;
-  height: 100px;
+  height: 80px;
   aspect-ratio: initial;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.5s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .cards > ul > li:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
