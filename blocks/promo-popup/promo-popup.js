@@ -342,10 +342,11 @@ function buildOverlay(config, promotions) {
     /* Conic gradient starts at -90deg (9 o'clock); pointer is at 12 o'clock.
        Segment midpoint in gradient coords: (segIdx+0.5)*degPer.
        In standard coords (0=12 o'clock): -90 + midpoint.
-       To land that at 12 o'clock: rotate R so that -90 + midpoint + R ≡ 0 → R = 90 - midpoint. */
+       To land that at 12 o'clock: rotate R so that -90 + midpoint + R ≡ 0 → R = 90 - midpoint.
+       Add 180deg: pointer was landing on opposite segment. */
     const midpoint = (segIdx + 0.5) * degPer;
     const extraSpins = (6 + Math.floor(Math.random() * 4)) * 360;
-    const needed = (90 - midpoint - (currentRotation % 360) + 720) % 360;
+    const needed = (270 - midpoint - (currentRotation % 360) + 720) % 360;
     const targetDeg = currentRotation + extraSpins + (needed === 0 ? 360 : needed);
 
     const spinDuration = prefersReducedMotion() ? 200 : duration;

@@ -16,7 +16,7 @@ show-orb-bg	false
 show-confetti	true
 spin-duration	4
 10% Off	Use code <strong>SAVE10</strong> at checkout	/checkout
-Free Ship	Free shipping on all orders over $50	/shipping
+Free Ship	Free shipping on orders over $50	/shipping
 BOGO	Buy one, get one <strong>50% off</strong> — today only	/sale
 $5 Off	$5 credit on your next order	/promo
 20% Off	Use code <strong>TWENTY</strong> — this week only	/checkout
