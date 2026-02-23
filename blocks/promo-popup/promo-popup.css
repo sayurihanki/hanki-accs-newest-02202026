@@ -13,6 +13,11 @@ main .promo-popup,
   --pp-accent-2: #6d28d9;
 }
 
+/* Hide raw table content (config + promo rows) — only the overlay/modal is visible */
+.promo-popup > div {
+  display: none;
+}
+
 /* ─── No-scroll lock ─────────────────────────────────────────────── */
 .pp-no-scroll { overflow: hidden; }
 
@@ -54,7 +59,7 @@ main .promo-popup,
   overflow: hidden auto;
   border-radius: var(--shape-border-radius-3, 24px);
   padding: 2.5rem 2rem 2rem;
-  background: rgb(255 255 255 / 85%);
+  background: rgb(255 255 255 / 92%);
   backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
   border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   box-shadow:
@@ -202,8 +207,8 @@ main .promo-popup,
   border-radius: 50%;
   border: none;
   padding: 0;
-  background: rgb(0 0 0 / 5%);
-  color: var(--color-neutral-700, #666);
+  background: rgb(0 0 0 / 8%);
+  color: var(--color-neutral-800, #3d3d3d);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -215,7 +220,7 @@ main .promo-popup,
 }
 
 .pp-close:hover {
-  background: rgb(136 33 244 / 8%);
+  background: rgb(136 33 244 / 12%);
   color: var(--pp-accent-1);
   transform: rotate(90deg);
 }
@@ -262,8 +267,9 @@ main .promo-popup,
 
 .pp-subheadline {
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 0.95rem;
-  color: var(--color-neutral-600, #8f8f8f);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-neutral-800, #3d3d3d);
   margin: 0;
   line-height: 1.5;
 }
@@ -518,10 +524,10 @@ main .promo-popup,
 .pp-result-inner {
   padding: 1.4rem;
   border-radius: var(--shape-border-radius-2, 16px);
-  background: var(--glass-bg, rgb(255 255 255 / 52%));
+  background: rgb(255 255 255 / 95%);
   backdrop-filter: var(--glass-blur-sm, blur(12px));
   border: 1px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 50%) inset;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 60%) inset;
   margin-bottom: 1rem;
   animation: pp-result-pop 0.5s var(--pp-ease-spring) forwards;
 }
@@ -569,8 +575,8 @@ main .promo-popup,
 
 .pp-result-desc {
   font-family: var(--type-base-font-family, adobe-clean, sans-serif);
-  font-size: 0.9rem;
-  color: var(--color-neutral-600, #8f8f8f);
+  font-size: 1rem;
+  color: var(--color-neutral-800, #3d3d3d);
   margin-bottom: 1rem;
   line-height: 1.55;
 }
@@ -608,8 +614,9 @@ main .promo-popup,
   width: 100%;
   background: none;
   border: none;
-  color: var(--color-neutral-500, #b8b8b8);
-  font-size: 0.85rem;
+  color: var(--color-neutral-800, #3d3d3d);
+  font-size: 0.95rem;
+  font-weight: 500;
   font-family: inherit;
   cursor: pointer;
   padding: 0.5rem;
@@ -620,7 +627,7 @@ main .promo-popup,
 }
 
 .pp-no-thanks:hover {
-  color: var(--color-neutral-700, #666);
+  color: var(--color-neutral-900, #292929);
 }
 
 /* ─── Confetti ────────────────────────────────────────────────────── */
