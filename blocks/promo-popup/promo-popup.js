@@ -139,6 +139,7 @@ function parseBlock(block) {
     const cells = [...row.children].filter((el) => el.tagName === 'DIV');
     if (cells.length === 2) {
       const key = getTextContent(cells[0]).toLowerCase().replace(/[-\s]/g, '');
+      if (key === 'promopopup') return; /* skip block name row */
       const val = getTextContent(cells[1]);
       if (CONFIG_KEYS.includes(key)) {
         const map = {
@@ -176,6 +177,7 @@ function parseBlock(block) {
       }
     } else if (cells.length >= 2) {
       const key = getTextContent(cells[0]).toLowerCase().replace(/[-\s]/g, '');
+      if (key === 'promopopup') return; /* skip block name row */
       if (CONFIG_KEYS.includes(key)) return; /* skip config rows */
       const label = getTextContent(cells[0]).replace(/\s+/g, ' ').trim();
       const descCell = cells[1];
@@ -188,6 +190,14 @@ function parseBlock(block) {
         const allowed = /^(https?:|mailto:|tel:|\/|\.)/i;
         if (raw && !blocked && allowed.test(raw)) {
           cta = { text: ctaEl.textContent.trim() || config.ctaButtonText, href: raw };
+        }
+      }
+      /* Fallback: 3rd cell plain text URL (DA.live may not auto-link) */
+      if (!cta && cells[2]) {
+        const raw = (cells[2].textContent || '').trim();
+        const allowed = /^(https?:|mailto:|tel:|\/|\.)/i;
+        if (raw && allowed.test(raw) && !/^(javascript|data|vbscript):/i.test(raw)) {
+          cta = { text: config.ctaButtonText, href: raw };
         }
       }
       if (label) promotions.push({ label, description, cta });

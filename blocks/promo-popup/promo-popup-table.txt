@@ -6,7 +6,7 @@ pill	Exclusive offer
 trigger	immediate
 trigger-delay	3
 trigger-scroll	50
-storage-duration	never
+storage-duration	session
 theme	purple
 spin-button-text	Spin the Wheel
 no-thanks-text	No thanks, I'll skip
