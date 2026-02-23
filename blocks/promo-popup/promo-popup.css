@@ -52,6 +52,7 @@ main .promo-popup,
 }
 
 /* ─── Modal (light glassmorphic, matches modal block) ───────────────── */
+/* Glass effect on ::after so text stays crisp (no backdrop-filter on content) */
 .pp-modal {
   position: relative;
   width: min(540px, 100%);
@@ -59,8 +60,7 @@ main .promo-popup,
   overflow: hidden auto;
   border-radius: var(--shape-border-radius-3, 24px);
   padding: 2.5rem 2rem 2rem;
-  background: rgb(255 255 255 / 92%);
-  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  background: transparent;
   border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 50%) inset,
@@ -68,6 +68,25 @@ main .promo-popup,
     0 48px 120px rgb(0 0 0 / 10%);
   transform: translateY(12px) scale(0.92);
   transition: transform 0.4s var(--pp-ease-spring), opacity 0.35s var(--pp-ease-out);
+  isolation: isolate;
+  /* Crisp text: avoid blur from compositing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Glass layer behind content — keeps text sharp */
+.pp-modal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgb(136 33 244 / 6%), transparent 70%),
+    rgb(255 255 255 / 96%);
+  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+  pointer-events: none;
+  z-index: -1;
 }
 
 .pp-overlay--visible .pp-modal {
@@ -117,20 +136,6 @@ main .promo-popup,
   );
   pointer-events: none;
   z-index: 1;
-}
-
-/* Inner radial glow */
-.pp-modal::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 70% 50% at 50% 0%,
-    rgb(136 33 244 / 6%),
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* ─── Animated orbs (form-4 style: purple, teal, gold) ─────────────── */
@@ -524,10 +529,9 @@ main .promo-popup,
 .pp-result-inner {
   padding: 1.4rem;
   border-radius: var(--shape-border-radius-2, 16px);
-  background: rgb(255 255 255 / 95%);
-  backdrop-filter: var(--glass-blur-sm, blur(12px));
+  background: #fff;
   border: 1px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 60%) inset;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 4%);
   margin-bottom: 1rem;
   animation: pp-result-pop 0.5s var(--pp-ease-spring) forwards;
 }
