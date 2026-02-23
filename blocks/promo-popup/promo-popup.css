@@ -75,7 +75,7 @@ main .promo-popup,
   text-rendering: optimizeLegibility;
 }
 
-/* Glass layer behind content — keeps text sharp */
+/* Solid background — no frosted glass on modal (keeps wheel area clean) */
 .pp-modal::after {
   content: '';
   position: absolute;
@@ -83,8 +83,7 @@ main .promo-popup,
   border-radius: inherit;
   background:
     radial-gradient(ellipse 70% 50% at 50% 0%, rgb(136 33 244 / 6%), transparent 70%),
-    rgb(255 255 255 / 96%);
-  backdrop-filter: var(--glass-blur, blur(24px)) var(--glass-saturate, saturate(160%));
+    rgb(255 255 255 / 98%);
   pointer-events: none;
   z-index: -1;
 }
@@ -357,16 +356,15 @@ main .promo-popup,
   to { transform: rotate(360deg); }
 }
 
-/* Glass ring around wheel */
+/* Simple ring around wheel — no frosted glass */
 .pp-wheel-wrap::after {
   content: '';
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 2px solid var(--glass-border, rgb(255 255 255 / 70%));
-  background: var(--glass-bg, rgb(255 255 255 / 52%));
-  backdrop-filter: var(--glass-blur-sm, blur(12px));
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 40%) inset;
+  border: 2px solid var(--glass-border-subtle, rgb(0 0 0 / 12%));
+  background: transparent;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 50%) inset;
   pointer-events: none;
 }
 
@@ -527,13 +525,33 @@ main .promo-popup,
 }
 
 .pp-result-inner {
+  position: relative;
   padding: 1.4rem;
   border-radius: var(--shape-border-radius-2, 16px);
-  background: #fff;
-  border: 1px solid var(--glass-border-subtle, rgb(0 0 0 / 8%));
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 4%);
+  background: transparent;
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
   margin-bottom: 1rem;
   animation: pp-result-pop 0.5s var(--pp-ease-spring) forwards;
+  overflow: hidden;
+}
+
+/* Frosted glass layer — only the card has this */
+.pp-result-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgb(255 255 255 / 88%);
+  backdrop-filter: var(--glass-blur-sm, blur(12px)) var(--glass-saturate, saturate(160%));
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 70%));
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 50%) inset;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pp-result-inner > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes pp-result-pop {
